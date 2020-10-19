@@ -1,9 +1,11 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const synth = new Tone.PolySynth(Tone.Synth).toMaster()
-
+    keyHandler()
+})
     function mapKey(key, octave) {
         return synth.triggerAttack(`${key.toUpperCase()}${octave}`)
     }
+function keyHandler() {
+    const synth = new Tone.PolySynth(Tone.Synth).toMaster()
 
     document.addEventListener('keydown', e => {
         if (e.key === 'a') {
@@ -118,11 +120,4 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     })
 
-
-
-
-})
-
-
-
-
+}
