@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
+/* 
+#visualizer {
+    width: 426px;
+    height: 190px;
+    border: 1px solid black;
+    margin-left: auto;
+} */
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    margin: auto;
+}
+
+ul .key {
+    position: relative;
+    width: 50px;
+    height: 200px;
+    border: 1px solid black;
+    border-right: none;
+    background: ivory;
+    border-radius: 5px;
+    /* box-shadow: 0px 3px 5px #666; */
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 10px;
+    font-weight: bold;
+}
+
+ul .key:last-child {
+    border-right: 1px solid black;
+}
+
+ul .bkey {
+    position: absolute;
+    top: -1px;
+    left: 37.5px;
+    width: 30px;
+    height: 130px;
+    background: black;
+    border-radius: 5px;
+    /* box-shadow: 0px 3px 5px #666; */
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 10px;
+    /* color: white; */
+}
+
+/* ul .active {
+    box-shadow: 0px 1px 3px #666;
+} */
+
+div[data-status="nopress"] {
+    color: white;
+    box-shadow: 0px 3px 5px #666;
+}
+
+div[data-status="pressed"] {
+    color: yellow;
+    box-shadow: 0px 1px 3px #666;
+}
+
+li[data-status="nopress"] {
+    color: black;
+    box-shadow: 0px 3px 5px #666;
+}
+
+li[data-status="pressed"] {
+    color: yellow;
+    box-shadow: 0px 1px 3px #666;
+}
+
+div button {
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 5px;
+    outline: none;
+}
