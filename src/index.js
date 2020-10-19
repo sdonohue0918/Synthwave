@@ -7,8 +7,10 @@ function mapKey(key, octave) {
 }
 
 function keyHandler() {
+    const audio = document.querySelector("audio")
     const synth = new Tone.PolySynth(Tone.Synth).toMaster()
-
+    const actx = Tone.context
+    
     document.addEventListener('keydown', e => {
         if (e.key === 'a') {
             synth.triggerAttack("C4")
@@ -26,39 +28,39 @@ function keyHandler() {
             synth.triggerAttack("Eb4")
             const note = document.getElementById("Eb")
             note.dataset.status = "pressed"
-        } else if (e.key === 'f') {
+        } else if (e.key === 'd') {
             synth.triggerAttack("E4")
             const note = document.getElementById("E")
             note.dataset.status = "pressed"
-        } else if (e.key === 'g') {
+        } else if (e.key === 'f') {
             synth.triggerAttack("F4")
             const note = document.getElementById("F")
             note.dataset.status = "pressed"
-        } else if (e.key === 'h') {
+        } else if (e.key === 't') {
             synth.triggerAttack("Gb4")
             const note = document.getElementById("Gb")
             note.dataset.status = "pressed"
-        } else if (e.key === 'u') {
+        } else if (e.key === 'g') {
             synth.triggerAttack("G4")
             const note = document.getElementById("G")
             note.dataset.status = "pressed"
-        } else if (e.key === 'j') {
+        } else if (e.key === 'y') {
             synth.triggerAttack("Ab4")
             const note = document.getElementById("Ab")
             note.dataset.status = "pressed"
-        } else if (e.key === 'i') {
+        } else if (e.key === 'h') {
             synth.triggerAttack("A4")
             const note = document.getElementById("A")
             note.dataset.status = "pressed"
-        } else if (e.key === 'k') {
+        } else if (e.key === 'u') {
             synth.triggerAttack("Bb4")
             const note = document.getElementById("Bb")
             note.dataset.status = "pressed"
-        } else if (e.key === 'l') {
+        } else if (e.key === 'j') {
             synth.triggerAttack("B4")
             const note = document.getElementById("B")
             note.dataset.status = "pressed"
-        } else if (e.key === 'p') {
+        } else if (e.key === 'k') {
             synth.triggerAttack("C5")
             const note = document.getElementById("C1")
             note.dataset.status = "pressed"
@@ -83,39 +85,39 @@ function keyHandler() {
             synth.triggerRelease("Eb4")
             const note = document.getElementById("Eb")
             note.dataset.status = "nopress"
-        } else if (e.key === 'f') {
+        } else if (e.key === 'd') {
             synth.triggerRelease("E4")
             const note = document.getElementById("E")
             note.dataset.status = "nopress"
-        } else if (e.key === 'g') {
+        } else if (e.key === 'f') {
             synth.triggerRelease("F4")
             const note = document.getElementById("F")
             note.dataset.status = "nopress"
-        } else if (e.key === 'h') {
+        } else if (e.key === 't') {
             synth.triggerRelease("Gb4")
             const note = document.getElementById("Gb")
             note.dataset.status = "nopress"
-        } else if (e.key === 'u') {
+        } else if (e.key === 'g') {
             synth.triggerRelease("G4")
             const note = document.getElementById("G")
             note.dataset.status = "nopress"
-        } else if (e.key === 'j') {
+        } else if (e.key === 'y') {
             synth.triggerRelease("Ab4")
             const note = document.getElementById("Ab")
             note.dataset.status = "nopress"
-        } else if (e.key === 'i') {
+        } else if (e.key === 'h') {
             synth.triggerRelease("A4")
             const note = document.getElementById("A")
             note.dataset.status = "nopress"
-        } else if (e.key === 'k') {
+        } else if (e.key === 'u') {
             synth.triggerRelease("Bb4")
             const note = document.getElementById("Bb")
             note.dataset.status = "nopress"
-        } else if (e.key === 'l') {
+        } else if (e.key === 'j') {
             synth.triggerRelease("B4")
             const note = document.getElementById("B")
             note.dataset.status = "nopress"
-        } else if (e.key === 'p') {
+        } else if (e.key === 'k') {
             synth.triggerRelease("C5")
             const note = document.getElementById("C1")
             note.dataset.status = "nopress"
