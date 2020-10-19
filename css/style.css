@@ -1,0 +1,7 @@
+[data-status="nopress"] {
+    color: black;
+}
+
+[data-status="pressed"] {
+    color: yellow;
+}
