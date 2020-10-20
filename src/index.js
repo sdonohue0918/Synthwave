@@ -63,33 +63,46 @@ document.addEventListener('click', e => {
 
 
 function playAudio(source) {
-   let options = { audioBitsPerSecond : 32000 }
-        const audio = new Audio(source)
-        audio.play()
-        const audioStream = audio.captureStream()
+        let options = { audioBitsPerSecond : 32000 }
+        let chunks = []
+        let audio = new Audio(source)
         
-        const destination = context.createMediaStreamDestination()
-        console.log(destination)
-        const recorder = new MediaRecorder(destination.stream, options)
-        recorder.start()
-        console.log(recorder)
+        const div = document.getElementById("records")
+        div.append(audio)
+        audio.id = "rec-test"
+        audio.hidden = true
 
-        audio.onended = function() {
+        
+        
+        audio.oncanplay = () => {
+            audio.play()
+            let ctx = context.createMediaElementSource(audio)
+            console.log(ctx)
             
-            let chunks = []
-            recorder.ondataavailable = (e) => {
-                chunks.push(e.data)
-            }
-            recorder.stop()
+            
+            // let recorder = new MediaRecorder(audioStream, options)
+            // recorder.start()
 
+            // recorder.ondataavailable = (e) => {
+            //     chunks.push(e.data)
+            //     console.log(chunks)
+            // }
 
+            // audio.onended = () => recorder.stop()
+
+            // recorder.onstop = (e) => {
+            //     let blob = new Blob(chunks, {'type': 'audio/ogg; codecs=opus'})
+            //     let newSource = URL.createObjectURL(blob)
+            //     console.log(newSource)
+            // }
+            
+            
         }
+        
+        
+        
 
-        recorder.onstop = (e) => {
-            let blob = new Blob(chunks, {type: 'audio/ogg codecs=opus'})
-            audio.src = URL.createObjectURL(blob)
-            console.log(blob)
-        }
+        
         
     }
     
