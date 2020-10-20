@@ -1,7 +1,33 @@
 document.addEventListener("DOMContentLoaded", function() {
     keyHandler()
+    soundHandler()
 })
 
+function soundHandler() {
+    function playAudio(keyCode){
+        var audio = new Audio('media/'+keyCode+'.mp3');
+        audio.play();
+    }
+    function pressKey(keyCode){
+        let key = document.querySelectorAll("[data-key='"+keyCode+"']")[0];
+        if (key && key.classList.contains('is-active') == false) {
+        key.classList.add('is-active'); 
+        playAudio(key.dataset.note);
+        }
+    }
+    function releaseKey(keyCode){
+        let key = document.querySelectorAll("[data-key='"+keyCode+"']")[0];
+        if (key) {
+            key.classList.remove('is-active'); 
+        }
+    }
+    document.addEventListener("keydown",function(event){
+        pressKey(event.keyCode);
+    })
+    document.addEventListener("keyup",function(event){
+        releaseKey(event.keyCode);
+    })
+}
 
 
 function keyHandler() {
@@ -54,7 +80,6 @@ function keyHandler() {
         if (e.key === 'a') {
             const note = document.getElementById("C")
             note.dataset.status = "nopress"
-            
         } else if (e.key === 'w') {
             const note = document.getElementById("Db")
             note.dataset.status = "nopress"

@@ -41,7 +41,7 @@ div#tray {
     margin-top: 10px;
 }
 
-ul .key {
+ul .white-key {
     position: relative;
     width: 50px;
     height: 200px;
@@ -58,11 +58,11 @@ ul .key {
     font-weight: bold;
 }
 
-ul .key:last-child {
+ul .white-key:last-child {
     border-right: 1px solid black;
 }
 
-ul .bkey {
+ul .black-key {
     position: absolute;
     top: -1px;
     left: 37.5px;
