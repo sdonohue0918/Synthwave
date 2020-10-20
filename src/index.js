@@ -9,21 +9,77 @@ document.addEventListener("DOMContentLoaded", function() {
     
     //Audio Stream
     window.AudioContext = window.AudioContext || window.webkitAudioContext
-     let context = new AudioContext()
-     const audioStream = context.createMediaStreamDestination()
+    let context = new AudioContext()
+    console.log(context)
+    const audioStream = context.createMediaStreamDestination()
     const audioRecorder = new MediaRecorder(audioStream.stream)
 
     //Buffer Loader
-    let bufferloader = new BufferLoader(
-        context,
-        ['Synthwave/legowelt/BASS-JojabiBass.wav',
-    'Synthwave/legowelt/BASS-Jujuesque.wav'],
-    finishLoading
-    )
+    // let bufferloader = new BufferLoader(
+    //     context,
+    //     ['/Users/amydonohue/Flatiron/project3/proj3_d1/Synthwave/legowelt/SYNTH-MiniMoogStab1.wav',
+    // '/Users/amydonohue/Flatiron/project3/proj3_d1/Synthwave/legowelt/SYNTH-MiniMoogStab2.wav'],
+    // finishLoading
+    // )
 
-    bufferloader.load()
+    // bufferloader.load()
 
-    function finishLoading(soundArray) {
+
+    //Recording Functions
+
+    audioRecorder.addEventListener('dataavailable', function(e) {
+        let dataChunks = []
+        if (e.data.size > 0) {
+            dataChunks.push(e.data)
+            console.log(dataChunks)
+            
+        } else {
+            console.log("did nothing")
+        }
+
+        return dataChunks
+    })
+
+    
+
+
+
+    audioRecorder.addEventListener('stop', e => {
+        let blob = newBlob(dataChunks, {'type': 'audio/ogg; codecs=opus'})
+        const url = URL.createObjectURL(blob)
+        const audioElement = document.querySelector('audio')
+        audioElement.src=url
+        console.log(audioElement)
+    })
+
+
+//Click Listener
+
+
+document.addEventListener('click', e => {
+    if (e.target.matches('#s')) {
+        
+        
+        context.resume()
+        console.log(context)
+        
+
+
+        
+    } else if (e.target.matches('#stop')) {
+        audioRecorder.stop()
+
+        
+
+    } else if (e.target.matches('#buffer')) {
+        loadSound('https://s3-us-west-2.amazonaws.com/s.cdpn.io/858/outfoxing.mp3')
+    
+    }
+})
+
+
+
+ function finishLoading(soundArray) {
         let src1 = context.createBufferSource()
         let src2 = context.createBufferSource()
         src1.buffer = soundArray[0]
