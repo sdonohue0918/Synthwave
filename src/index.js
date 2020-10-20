@@ -69,9 +69,28 @@ function playAudio(source) {
         const audioStream = audio.captureStream()
         
         const destination = context.createMediaStreamDestination()
+        console.log(destination)
         const recorder = new MediaRecorder(destination.stream, options)
         recorder.start()
         console.log(recorder)
+
+        audio.onended = function() {
+            
+            let chunks = []
+            recorder.ondataavailable = (e) => {
+                chunks.push(e.data)
+            }
+            recorder.stop()
+
+
+        }
+
+        recorder.onstop = (e) => {
+            let blob = new Blob(chunks, {type: 'audio/ogg codecs=opus'})
+            audio.src = URL.createObjectURL(blob)
+            console.log(blob)
+        }
+        
     }
     
     
