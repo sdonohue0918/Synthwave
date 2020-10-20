@@ -67,7 +67,7 @@ function getUserMedia() {
     let evtTgt = e.target;
     evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);
     }
-}
+    }
     })
       // Error callback
     .catch(function(err) {
