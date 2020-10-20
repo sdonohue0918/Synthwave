@@ -1,0 +1,24 @@
+{
+  "name": "synthwave",
+  "version": "1.0.0",
+  "description": "piano synth",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sdonohue0918/Synthwave.git"
+  },
+  "keywords": [
+    "synth",
+    "wave",
+    "piano"
+  ],
+  "author": "Gabriel and Sean",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sdonohue0918/Synthwave/issues"
+  },
+  "homepage": "https://github.com/sdonohue0918/Synthwave#readme"
+}
