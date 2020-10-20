@@ -3,17 +3,44 @@
 
 document.addEventListener("DOMContentLoaded", function() {
     
-    keyListener()
-    keyUpListener()
+    // keyListener()
+    // keyUpListener()
     
     
-    
+    //Audio Stream
     window.AudioContext = window.AudioContext || window.webkitAudioContext
      let context = new AudioContext()
-     
-     
-    const audioStream = context.createMediaStreamDestination()
+     const audioStream = context.createMediaStreamDestination()
     const audioRecorder = new MediaRecorder(audioStream.stream)
+
+    //Buffer Loader
+    let bufferloader = new BufferLoader(
+        context,
+        ['Synthwave/legowelt/BASS-JojabiBass.wav',
+    'Synthwave/legowelt/BASS-Jujuesque.wav'],
+    finishLoading
+    )
+
+    bufferloader.load()
+
+    function finishLoading(soundArray) {
+        let src1 = context.createBufferSource()
+        let src2 = context.createBufferSource()
+        src1.buffer = soundArray[0]
+        src2.buffer = soundArray[1]
+        src1.connect(context.destination)
+        src2.connect(context.destination)
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'm') {
+                context.resume()
+            } else if (e.key === 'a') {
+                src1.start()
+            } else if (e.key === 's') {
+                src2.start()
+            }
+        })
+    }
             
            
 function keyUpListener() {
