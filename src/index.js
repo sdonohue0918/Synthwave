@@ -15,14 +15,14 @@ function getUserMedia() {
       // Success callback
     .then(function(stream) {
     const mediaRecorder = new MediaRecorder(stream);
-    const record = document.querySelector('.record');
+    const record = document.querySelector('#record');
     const stop = document.querySelector('.stop');
     record.onclick = function() {
     mediaRecorder.start();
     console.log(mediaRecorder.state);
     console.log("recorder started");
-    record.style.background = "red";
-    record.style.color = "black";
+    record.classList.add("active");
+    // record.style.color = "black";
     }
 
     let chunks = [];
@@ -35,14 +35,12 @@ function getUserMedia() {
     mediaRecorder.stop();
     console.log(mediaRecorder.state);
     console.log("recorder stopped");
-    record.style.background = "";
-    record.style.color = "";
+    record.classList.remove("active");
     }
     mediaRecorder.onstop = function(e) {
     console.log("recorder stopped2");
     const soundClips = document.querySelector('.sound-clips');
     const clipName = prompt('Enter a name for your sound clip');
-
     const clipContainer = document.createElement('article');
     const clipLabel = document.createElement('p');
     const audio = document.createElement('audio');
