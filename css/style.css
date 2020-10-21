@@ -129,7 +129,7 @@ button.delete {
 	width: 30px;
 	height: 30px;
 	font-weight: bolder;
-	background-color: rgba(255,0,0,0.8);
+	background-color: rgba(78, 157, 0, 0.666);;
     outline: none;
     position: fixed;
 }
@@ -157,6 +157,15 @@ button#record {
 	background-color: rgba(173,0,0,0.9);
 	border: 1;
 	border-radius: 30px;
+	outline: none;
+}
+
+button.stop {
+	width: 30px;
+	height: 30px;
+	font-size: 0;
+	background-color: rgba(82, 82, 82, 0.9);
+	border: 1;
 	outline: none;
 }
 
