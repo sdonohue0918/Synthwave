@@ -2,41 +2,25 @@
 
 
 document.addEventListener("DOMContentLoaded", function() {
+
+//     const aud = new Audio('./audio.mp3');
+//     aud.play().then( () => {
+//   const stream = aud.captureStream();
+//   const recorder = new MediaRecorder(stream);
+//   recorder.ondataavailable = ...
+
+// });
     
     
     window.AudioContext = window.AudioContext || window.webkitAudioContext
     let context = new AudioContext()
-    console.log(context)
-    const audioStream = context.createMediaStreamDestination()
-    const audioRecorder = new MediaRecorder(audioStream.stream)
-
+    let destination = context.createMediaStreamDestination()
+    let recorder = new MediaRecorder(destination.stream)
+    
    keyListener()
    keyUpListener()
 
-    audioRecorder.addEventListener('dataavailable', function(e) {
-        let dataChunks = []
-        if (e.data.size > 0) {
-            dataChunks.push(e.data)
-            console.log(dataChunks)
-            
-        } else {
-            console.log("did nothing")
-        }
 
-        return dataChunks
-    })
-
-    
-
-
-
-    audioRecorder.addEventListener('stop', () => {
-        let blob = newBlob(dataChunks, {'type': 'audio/ogg; codecs=opus'})
-        const url = URL.createObjectURL(blob)
-        const audioElement = document.querySelector('audio')
-        audioElement.src=url
-        console.log(audioElement)
-    })
 
 
 //Click Listener
@@ -44,67 +28,60 @@ document.addEventListener("DOMContentLoaded", function() {
 
 document.addEventListener('click', e => {
     if (e.target.matches('#s')) {
-        
-        
         context.resume()
         console.log(context)
-        
+    } else if (e.target.matches('#start')) {
+        recorder.start()
+        recordAudio()
 
-
-        
-    }  else if (e.target.matches('#start')) {
-        e.target.id = 'stop'
-
-       
-        
-    
     }
 })
 
 
-function playAudio(source) {
-        let options = { audioBitsPerSecond : 32000 }
-        let chunks = []
-        let audio = new Audio(source)
-        
-        const div = document.getElementById("records")
-        div.append(audio)
-        audio.id = "rec-test"
-        audio.hidden = true
+function recordAudio() {
+    
+    let chunks = []
+    let constraints = {
+        audio: true
+    }
 
-        
-        
-        audio.oncanplay = () => {
-            audio.play()
-            let ctx = context.createMediaElementSource(audio)
-            console.log(ctx)
-            
-            
-            // let recorder = new MediaRecorder(audioStream, options)
-            // recorder.start()
+    navigator.mediaDevices.getUserMedia(constraints).then(function() {
+        const stopBtn = document.getElementById('stop')
+        stopBtn.onclick = function() {
+            recorder.stop()
+        }
 
-            // recorder.ondataavailable = (e) => {
-            //     chunks.push(e.data)
-            //     console.log(chunks)
-            // }
+        recorder.ondataavailable = function(e) {
+            chunks.push(e.data)
+        }
 
-            // audio.onended = () => recorder.stop()
-
-            // recorder.onstop = (e) => {
-            //     let blob = new Blob(chunks, {'type': 'audio/ogg; codecs=opus'})
-            //     let newSource = URL.createObjectURL(blob)
-            //     console.log(newSource)
-            // }
-            
-            
+        recorder.onstop = function() {
+            const audioTag = document.getElementById('newRecording')
+            let blob = new Blob(chunks, {'type': 'audio/ogg; codecs=opus'})
+            let newUrl = URL.createObjectURL(blob)
+            audioTag.src = newUrl
         }
         
+    }).catch(function(error) {
+        console.log("shits fucked" + error)
+    })
+}
+
+function playAudio(source) {
+        
+        
+    let audio = new Audio(source)
+    audio.play()
+
+        
+}
+        
         
         
 
         
         
-    }
+    
     
     
 
@@ -190,39 +167,6 @@ function keyUpListener() {
     }
     
 
-
-    
-        audioRecorder.addEventListener('dataavailable', function(e) {
-            let dataChunks = []
-            if (e.data.size > 0) {
-                dataChunks.push(e.data)
-                console.log(dataChunks)
-                
-            } else {
-                console.log("did nothing")
-            }
-
-            return dataChunks
-        })
-
-        
-    
-
-    
-        audioRecorder.addEventListener('stop', e => {
-            let blob = newBlob(dataChunks, {'type': 'audio/ogg; codecs=opus'})
-            const url = URL.createObjectURL(blob)
-            const audioElement = document.querySelector('audio')
-            audioElement.src=url
-            console.log(audioElement)
-        })
-    
-
-
-    
-
-    
-    
 
     function keyListener() {
 
