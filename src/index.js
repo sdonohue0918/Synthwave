@@ -34,6 +34,28 @@ document.addEventListener('click', e => {
         recorder.start()
         recordAudio()
 
+    } else if (e.target.matches('#song-submit')) {
+            e.preventDefault()
+            let formData =  new FormData()
+            let form = document.getElementById('song-form')
+            let track = document.getElementById('newRecording')
+            let song = track.src
+            let name = form["name"].value
+            let author = form["author"].value
+            formData.append("name", form["name"].value)
+            
+            formData.append("author", form["author"].value)
+            
+            formData.append("file", song)
+            
+            
+            let songOptions = {name: name, author: author, file: song}
+                
+                postSong(formData)
+
+            
+
+        
     }
 })
 
@@ -57,13 +79,33 @@ function recordAudio() {
 
         recorder.onstop = function() {
             const audioTag = document.getElementById('newRecording')
-            let blob = new Blob(chunks, {'type': 'audio/ogg; codecs=opus'})
+            let blob = new Blob(chunks, {'type': 'audio/mpeg-3'})
             let newUrl = URL.createObjectURL(blob)
             audioTag.src = newUrl
+            let formContainer = document.getElementById('form-container')
+            const form = document.createElement('form')
+            form.id = "song-form"
+            form.innerHTML = `<input type="text" name="name" placeholder="Enter a Name for your Song" value="">
+                                <input type="text" name="author" placeholder="Enter your Name" value="">
+                                
+                                <button id="song-submit" type="submit">Upload Your Song</button>`
+            formContainer.append(form)
+
+            // let file = new File([blob], "anon.mp3", {type: 'audio/mp3'})
+
+            // const fileContainer = document.getElementById('file')
+            // fileContainer.src = file
+            
+
+            
+
+            
+            
+            
         }
         
     }).catch(function(error) {
-        console.log("shits fucked" + error)
+        console.log("error: " + error)
     })
 }
 
@@ -72,12 +114,47 @@ function playAudio(source) {
         
     let audio = new Audio(source)
     audio.play()
+    audio.context = context
+    console.log(audio.context)
 
         
 }
         
         
+function postSong(data) {
+
+    let options = {
+        method: 'POST',
+        mode: 'no-cors',
+        credentials: 'same-origin',
+        body: data
+    }
+    fetch('http://localhost:3000/songs/', options).then(function(response) {
+        return response.text()
+    }).then(function(text) {
+        clearForm()
+        console.log(text)
+    }).catch(function(error) {
+        console.log("error: " + error)
+    })
+    
+   
+   
+
+
+}
+
+function clearForm() {
+    let formContainer = document.getElementById('form-container')
+    formContainer.innerHTML = ''
+    let form = document.getElementById('song-form')
+    form.reset()
+
+}
+
         
+
+
 
         
         
