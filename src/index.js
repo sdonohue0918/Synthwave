@@ -165,7 +165,15 @@ function clearForm() {
 
         
 function getFile() {
-    fetch(`http://localhost:3000/songs/20`).then(function(response) {
+
+
+    options = {
+        method: "GET",
+        headers: {
+            "content-type" : "audio/mpeg-3"
+        }
+    }
+    fetch(`http://localhost:3000/songs/20`, options).then(function(response) {
         return response.blob()
     }).then(function(blob) {
         const playBar = document.getElementById('newRecording')
