@@ -39,8 +39,8 @@ function getUserMedia() {
     }
     mediaRecorder.onstop = function(e) {
     console.log("recorder stopped2");
-    const soundClips = document.querySelector('.sound-clips');
-    const clipName = prompt('Enter a name for your sound clip');
+    const soundClips = document.querySelector('#sound-clips');
+    // const clipName = prompt('Enter a name for your sound clip');
     const clipContainer = document.createElement('article');
     const clipLabel = document.createElement('p');
     const audio = document.createElement('audio');
@@ -48,13 +48,19 @@ function getUserMedia() {
 
     clipContainer.classList.add('clip');
     audio.setAttribute('controls', '');
-    deleteButton.innerHTML = "Delete";
-    clipLabel.innerHTML = clipName;
+    deleteButton.innerHTML = "X";
+    deleteButton.classList.add("delete")
+    // clipLabel.innerHTML = clipName;
 
     clipContainer.appendChild(audio);
-    clipContainer.appendChild(clipLabel);
-    clipContainer.appendChild(deleteButton);
+    // clipContainer.appendChild(clipLabel);
+    let oldOne = document.querySelector("#newRecording")
+    if(oldOne) {
+        oldOne.remove()
+    }
+    // soundClips.innerHTML = "";
     soundClips.appendChild(clipContainer);
+    clipContainer.appendChild(deleteButton);
 
     const blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
     chunks = [];
@@ -63,7 +69,9 @@ function getUserMedia() {
 
     deleteButton.onclick = function(e) {
     let evtTgt = e.target;
-    evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);
+    console.dir(e.target)
+    evtTgt.previousSibling.remove();
+    evtTgt.remove();
     }
     }
     })
@@ -77,6 +85,51 @@ function getUserMedia() {
     }
     
 }
+
+//////////////////////////
+function postSong(data) {
+
+    let options = {
+        method: 'POST',
+        mode: 'no-cors',
+        credentials: 'same-origin',
+        body: data
+    }
+    fetch('http://localhost:3000/songs/', options).then(function(response) {
+        return response.json()
+    }).then(function(text) {
+        clearForm()
+        console.log(text)
+    }).catch(function(error) {
+        console.log("error: " + error)
+    })
+    
+}
+//////////////////////////
+document.addEventListener('click', e => {
+    if (e.target.matches('#song-submit')) {
+            e.preventDefault()
+            let formData =  new FormData()
+            let form = document.getElementById('song-form')
+            let track = document.getElementById('newRecording')
+            let song = track.src
+            let name = form["name"].value
+            let author = form["author"].value
+            formData.append("name", form["name"].value)
+            formData.append("author", form["author"].value)
+            formData.append("file", song)
+            let songOptions = {name: name, author: author, file: song}
+                
+                postSong(formData)
+    }
+})
+//////////////////////////////
+let formContainer = document.getElementById('form-container')
+formContainer.innerHTML = ''
+let form = document.getElementById('song-form')
+form.reset()
+////////////////////////////
+
 
 function soundHandler() {
 

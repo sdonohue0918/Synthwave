@@ -9,6 +9,8 @@
     <title>Synthwave</title>
     <link rel="stylesheet" href="css/style.css"/>
     <script src="src/index.js"></script>
+    
+    
 </head>
 <body>
     <div id="synth" class="flex-container">
@@ -16,9 +18,6 @@
         <div id="tray">
             <button id="record">Rec</button>
             <button class="stop" id="play">Stop</button>
-            <!-- <button id="play">Play</button>
-            <button id="play">Reset</button>
-            <button id="play">Save</button> -->
         </div>
     </div>
     <ul class="keys" id="keyboard">
@@ -49,7 +48,18 @@
         <li data-note="523-C" data-key="75" id="C1" data-status="nopress" class="white-key">C
         </li>
     </ul>
+
+    <div id="sound-clips">
+        <audio controls id="newRecording" src=""></audio>
     </div>
-    <div class="sound-clips"></div>
+
+    <div id="form-container">
+
+    </div>
+
+    <div id="file-container" hidden>
+        <audio id="file" src=></audio>
+    </div>
+    
 </body>
 </html>
