@@ -36,22 +36,11 @@ document.addEventListener('click', e => {
 
     } else if (e.target.matches('#song-submit')) {
             e.preventDefault()
-            let formData =  new FormData()
-            let form = document.getElementById('song-form')
-            let track = document.getElementById('newRecording')
-            let song = track.src
-            let name = form["name"].value
-            let author = form["author"].value
-            formData.append("name", form["name"].value)
-            
-            formData.append("author", form["author"].value)
-            
-            formData.append("file", song)
             
             
-            let songOptions = {name: name, author: author, file: song}
+        
                 
-                postSong(formData)
+            
 
             
 
@@ -80,8 +69,8 @@ function recordAudio() {
         recorder.onstop = function() {
             const audioTag = document.getElementById('newRecording')
             let blob = new Blob(chunks, {'type': 'audio/mpeg-3'})
-            let newUrl = URL.createObjectURL(blob)
-            audioTag.src = newUrl
+            //let newUrl = URL.createObjectURL(blob)
+            audioTag.src = blob
             let formContainer = document.getElementById('form-container')
             const form = document.createElement('form')
             form.id = "song-form"
@@ -91,12 +80,30 @@ function recordAudio() {
                                 <button id="song-submit" type="submit">Upload Your Song</button>`
             formContainer.append(form)
 
+            let formData =  new FormData()
+            let songForm = document.getElementById('song-form')
+            //let track = document.getElementById('newRecording')
+            // let song = track.src
+            //let strip = song.replace(/['"]+/g, '')
+            //console.log(strip)
+            let name = songForm["name"].value
+            let author = songForm["author"].value
+            formData.append("name", songForm["name"].value)
+            
+            formData.append("author", songForm["author"].value)
+            
+            formData.append("file", blob)
+
             // let file = new File([blob], "anon.mp3", {type: 'audio/mp3'})
 
             // const fileContainer = document.getElementById('file')
             // fileContainer.src = file
-            
+            const submit = document.getElementById("song-submit")
 
+            submit.onclick = function() {
+                postSong(formData)
+            }
+            
             
 
             
