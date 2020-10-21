@@ -30,9 +30,11 @@ document.addEventListener('click', e => {
     if (e.target.matches('#s')) {
         context.resume()
         console.log(context)
+        getFile()
     } else if (e.target.matches('#start')) {
         recorder.start()
         recordAudio()
+        
 
     } else if (e.target.matches('#song-submit')) {
             e.preventDefault()
@@ -103,6 +105,8 @@ function recordAudio() {
             submit.onclick = function() {
                 postSong(formData)
             }
+
+    
             
             
 
@@ -160,7 +164,21 @@ function clearForm() {
 }
 
         
+function getFile() {
+    fetch(`http://localhost:3000/songs/20`).then(function(response) {
+        return response.blob()
+    }).then(function(blob) {
+        const playBar = document.getElementById('newRecording')
+        source = URL.createObjectURL(blob)
+        playBar.src = source
+        
 
+        
+
+       
+    })
+
+}
 
 
         
