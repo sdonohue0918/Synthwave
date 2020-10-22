@@ -3,19 +3,12 @@
 
 document.addEventListener("DOMContentLoaded", function() {
 
-//     const aud = new Audio('./audio.mp3');
-//     aud.play().then( () => {
-//   const stream = aud.captureStream();
-//   const recorder = new MediaRecorder(stream);
-//   recorder.ondataavailable = ...
 
-// });
     
     
     window.AudioContext = window.AudioContext || window.webkitAudioContext
     let context = new AudioContext()
-    let destination = context.createMediaStreamDestination()
-    let recorder = new MediaRecorder(destination.stream)
+    
     
    keyListener()
    keyUpListener()
@@ -30,24 +23,16 @@ document.addEventListener('click', e => {
     if (e.target.matches('#s')) {
         context.resume()
         console.log(context)
-        getFile()
+        //getFile()
     } else if (e.target.matches('#start')) {
-        recorder.start()
+        
         recordAudio()
         
 
     } else if (e.target.matches('#song-submit')) {
             e.preventDefault()
             
-            
-        
-                
-            
-
-            
-
-        
-    }
+    }            
 })
 
 
@@ -58,52 +43,38 @@ function recordAudio() {
         audio: true
     }
 
-    navigator.mediaDevices.getUserMedia(constraints).then(function() {
+     navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+        let streamRecorder = new MediaRecorder(stream)
+        streamRecorder.start()
+        
+        
         const stopBtn = document.getElementById('stop')
         stopBtn.onclick = function() {
-            recorder.stop()
+            streamRecorder.stop()
         }
 
-        recorder.ondataavailable = function(e) {
+        streamRecorder.ondataavailable = function(e) {
             chunks.push(e.data)
         }
 
-        recorder.onstop = function() {
+        streamRecorder.onstop = function() {
             const audioTag = document.getElementById('newRecording')
             let blob = new Blob(chunks, {'type': 'audio/mpeg-3'})
-            //let newUrl = URL.createObjectURL(blob)
-            audioTag.src = blob
+            let newUrl = URL.createObjectURL(blob)
+            audioTag.src = newUrl
             let formContainer = document.getElementById('form-container')
             const form = document.createElement('form')
             form.id = "song-form"
-            form.innerHTML = `<input type="text" name="name" placeholder="Enter a Name for your Song" value="">
-                                <input type="text" name="author" placeholder="Enter your Name" value="">
+            form.innerHTML = `<input type="text" name="name" placeholder="Enter a Name for your Song" >
+                                <input type="text" name="author" placeholder="Enter your Name" >
                                 
                                 <button id="song-submit" type="submit">Upload Your Song</button>`
             formContainer.append(form)
 
-            let formData =  new FormData()
-            let songForm = document.getElementById('song-form')
-            //let track = document.getElementById('newRecording')
-            // let song = track.src
-            //let strip = song.replace(/['"]+/g, '')
-            //console.log(strip)
-            let name = songForm["name"].value
-            let author = songForm["author"].value
-            formData.append("name", songForm["name"].value)
             
-            formData.append("author", songForm["author"].value)
-            
-            formData.append("file", blob)
-
-            // let file = new File([blob], "anon.mp3", {type: 'audio/mp3'})
-
-            // const fileContainer = document.getElementById('file')
-            // fileContainer.src = file
-            const submit = document.getElementById("song-submit")
-
-            submit.onclick = function() {
-                postSong(formData)
+            const submitBtn = document.getElementById('song-submit')
+            submitBtn.onclick = function() {
+                postSong(blob)
             }
 
     
@@ -132,19 +103,31 @@ function playAudio(source) {
 }
         
         
-function postSong(data) {
+function postSong(audio) {
+    let formData =  new FormData()
+    let songForm = document.getElementById('song-form')
+    let name = songForm["name"].value
+    console.log(name)
+    let author = songForm["author"].value
+    console.log(author)
+    formData.append("name", songForm["name"].value)
+    formData.append("author", songForm["author"].value)
+    formData.append("file", audio)
+
+            
+    const submit = document.getElementById("song-submit")
 
     let options = {
         method: 'POST',
         mode: 'no-cors',
         credentials: 'same-origin',
-        body: data
+        body: formData
     }
     fetch('http://localhost:3000/songs/', options).then(function(response) {
-        return response.text()
-    }).then(function(text) {
+        return response.json()
+    }).then(function(json) {
         clearForm()
-        console.log(text)
+        console.log(json)
     }).catch(function(error) {
         console.log("error: " + error)
     })
@@ -159,7 +142,7 @@ function clearForm() {
     let formContainer = document.getElementById('form-container')
     formContainer.innerHTML = ''
     let form = document.getElementById('song-form')
-    form.reset()
+    
 
 }
 
@@ -189,7 +172,7 @@ function getFile() {
 }
 
 
-        
+
         
     
     
