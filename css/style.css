@@ -198,13 +198,14 @@ textarea {
     outline: none;
     font-size: large;
     font-weight: 900px;
-    color: rgb(160, 160, 160);
+    color: rgb(220, 220, 220);
     background-color: rgba(103, 65, 114, 0.5);
     -webkit-text-stroke: 0.3px black;
     outline: none;
 }
 
 label {
+    color: rgb(220, 220, 220);
     margin-top: 1vh;
 }
 
@@ -217,14 +218,14 @@ li {
     font-weight: 900px;
     height: 30px;
     list-style-type: none;
-    color: rgb(160, 160, 160);
+    color: rgb(220, 220, 220);
     -webkit-text-stroke: 0.3px black;
 }
 
 #user {
     font-size: large;
     font-weight: 900px;
-    color: rgb(160, 160, 160);
+    color: rgb(220, 220, 220);
     background-color: rgba(103, 65, 114, 0.5);
     -webkit-text-stroke: 0.3px black;
     outline: none;
@@ -263,6 +264,11 @@ input#submit {
 	font-weight: bolder;
 	background-color: rgba(78, 157, 0, 1);;
     outline: none;
+}
+
+::placeholder {
+    color: rgba(220, 220, 220, 0.5);
+    -webkit-text-stroke: 0.3px black;
 }
 
 @keyframes pulse{
