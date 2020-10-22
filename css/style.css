@@ -15,7 +15,7 @@ body {
 }
 
 div#synth {
-    margin-top: 25vh;
+    margin-top: 10vh;
     margin-left: 0vw;
     width: 800px;
     height: 400px;
@@ -34,13 +34,15 @@ ul#keyboard {
     margin: auto;
 }
 
+
 div#playbar {
     width: 400px;
     height: 50px;
     border: 1px solid black;
     border-radius: 5px;
     margin: auto;
-    margin-top: 9em;
+    margin-top: 1em;
+    background-image: url("../public/images/soundbar.png");
 }
 
 div#tray {
@@ -126,7 +128,7 @@ div#sound-clips {
 }
 
 button.delete {
-	width: 30px;
+    width: 30px;
 	height: 30px;
 	font-weight: bolder;
 	background-color: rgba(78, 157, 0, 0.666);;
@@ -134,13 +136,71 @@ button.delete {
     position: fixed;
 }
 
-article.clip {
+button.sound {
+    width: 30px;
+	height: 30px;
+	font-weight: bolder;
+	background-color: rgba(78, 157, 0, 1);;
+    outline: none;
+    /* position: fixed; */
+}
+
+button#record {
+    width: 30px;
+	height: 30px;
+    /* font-size: 0; */
+    font-weight: bolder;
+	background-color: rgba(173,0,0,0.9);
+	border: 1;
+	border-radius: 30px;
+	outline: none;
+}
+
+button.stop {
+    font-weight: bolder;
+    width: 30px;
+	height: 30px;
+	/* font-size: 0; */
+	background-color: rgba(82, 82, 82, 0.9);
+	border: 1;
+	outline: none;
+}
+
+button#record.active{
+    animation-name: pulse;
+	animation-duration: 1.5s;
+	animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    background-color: rgba(255, 0, 0, 0.9);
+}
+
+img#logo {
+    margin-top: 0.75%;
+    margin-bottom: 0.75%;
+    padding-left: 1.8vw;
+    opacity: 0.8;
+}
+
+div#comments {
+    margin-top: 0.8%;
+    line-height:3em;
     justify-content: center;
     align-items: center;
-    margin-top: 2%;
+    overflow:auto;
+    float: right;
+    width: 50%;
+    height: 300px;
+    background-color: aliceblue;
 }
 
 #newRecording {
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+    float: left;
+}
+
+article.clip {
     justify-content: center;
     align-items: center;
     margin-top: 2%;
@@ -150,41 +210,19 @@ audio {
     height: 30px;
 }
 
-button#record {
-	width: 30px;
-	height: 30px;
-	font-size: 0;
-	background-color: rgba(173,0,0,0.9);
-	border: 1;
-	border-radius: 30px;
-	outline: none;
-}
-
-button.stop {
-	width: 30px;
-	height: 30px;
-	font-size: 0;
-	background-color: rgba(82, 82, 82, 0.9);
-	border: 1;
-	outline: none;
-}
-
-button#record.active{
-	animation-name: pulse;
-	animation-duration: 1.5s;
-	animation-iteration-count: infinite;
-    animation-timing-function: linear;
-    background-color: rgba(255, 0, 0, 0.9);
+div#features {
+    width: 800px;
+    display: inline;
 }
 
 @keyframes pulse{
-	0%{
-		box-shadow: 0px 0px 5px 0px rgba(173,0,0,.3);
+    0%{
+        box-shadow: 0px 0px 5px 0px rgba(173,0,0,.3);
 	}
 	65%{
-		box-shadow: 0px 0px 5px 13px rgba(173,0,0,.3);
+        box-shadow: 0px 0px 5px 13px rgba(173,0,0,.3);
 	}
 	90%{
-		box-shadow: 0px 0px 5px 13px rgba(173,0,0,0);
+        box-shadow: 0px 0px 5px 13px rgba(173,0,0,0);
 	}
 }

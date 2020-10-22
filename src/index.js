@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     keyHandler()
     soundHandler()
     getUserMedia()
+    sampleHandler()
 })
 
 function getUserMedia() {
@@ -86,55 +87,55 @@ function getUserMedia() {
     
 }
 
-//////////////////////////
-function postSong(data) {
+// //////////////////////////
+// function postSong(data) {
 
-    let options = {
-        method: 'POST',
-        mode: 'no-cors',
-        credentials: 'same-origin',
-        body: data
-    }
-    fetch('http://localhost:3000/songs/', options).then(function(response) {
-        return response.json()
-    }).then(function(text) {
-        clearForm()
-        console.log(text)
-    }).catch(function(error) {
-        console.log("error: " + error)
-    })
+//     let options = {
+//         method: 'POST',
+//         mode: 'no-cors',
+//         credentials: 'same-origin',
+//         body: data
+//     }
+//     fetch('http://localhost:3000/songs/', options).then(function(response) {
+//         return response.json()
+//     }).then(function(text) {
+//         clearForm()
+//         console.log(text)
+//     }).catch(function(error) {
+//         console.log("error: " + error)
+//     })
     
-}
-//////////////////////////
-document.addEventListener('click', e => {
-    if (e.target.matches('#song-submit')) {
-            e.preventDefault()
-            let formData =  new FormData()
-            let form = document.getElementById('song-form')
-            let track = document.getElementById('newRecording')
-            let song = track.src
-            let name = form["name"].value
-            let author = form["author"].value
-            formData.append("name", form["name"].value)
-            formData.append("author", form["author"].value)
-            formData.append("file", song)
-            let songOptions = {name: name, author: author, file: song}
+// }
+// //////////////////////////
+// document.addEventListener('click', e => {
+//     if (e.target.matches('#song-submit')) {
+//             e.preventDefault()
+//             let formData =  new FormData()
+//             let form = document.getElementById('song-form')
+//             let track = document.getElementById('newRecording')
+//             let song = track.src
+//             let name = form["name"].value
+//             let author = form["author"].value
+//             formData.append("name", form["name"].value)
+//             formData.append("author", form["author"].value)
+//             formData.append("file", song)
+//             let songOptions = {name: name, author: author, file: song}
                 
-                postSong(formData)
-    }
-})
-//////////////////////////////
-let formContainer = document.getElementById('form-container')
-formContainer.innerHTML = ''
-let form = document.getElementById('song-form')
-form.reset()
-////////////////////////////
+//                 postSong(formData)
+//     }
+// })
+// //////////////////////////////
+// let formContainer = document.getElementById('form-container')
+// formContainer.innerHTML = ''
+// let form = document.getElementById('song-form')
+// form.reset()
+// ////////////////////////////
 
 
 function soundHandler() {
 
     function playAudio(keyCode){
-        var audio = new Audio('media/'+keyCode+'.mp3');
+        var audio = new Audio('media/'+keyCode);
         audio.play();
     }
     function pressKey(keyCode){
@@ -158,6 +159,77 @@ function soundHandler() {
     })
 }
 
+function sampleHandler() {
+    document.addEventListener("click", e => {
+        const keyboard = document.querySelector("#keyboard")
+        if(e.target.matches("#samples1")) {
+            keyboard.innerHTML = `
+        <li data-note="261-C.mp3" data-key="65" id="C" data-status="nopress" class="white-key"> C
+            <div data-note="277-C-sharp.mp3" data-key="87" id="Db" data-status="nopress" class="black-key">Db</div>
+        </li>
+        <li data-note="293-D.mp3" data-key="83" id="D" data-status="nopress" class="white-key">D
+            <div data-note="311-D-sharp.mp3" data-key="69" id="Eb" data-status="nopress" class="black-key">Eb</div>
+        </li>
+        <li data-note="329-E.mp3" data-key="68" id="E" data-status="nopress" class="white-key">E</li>
+        <li data-note="349-F.mp3" data-key="70" id="F" data-status="nopress" class="white-key">F
+            <div data-note="369F-sharp.mp3" data-key="84" id="Gb" data-status="nopress" class="black-key">Gb</div>
+        </li>
+        <li data-note="391-G.mp3" data-key="71" id="G" data-status="nopress" class="white-key">G
+            <div data-note="415-G-sharp.mp3" data-key="89" id="Ab" data-status="nopress" class="black-key">Ab</div>
+        </li>
+        <li data-note="440-A.mp3" data-key="72" id="A" data-status="nopress" class="white-key">A
+            <div data-note="466-A-sharp.mp3" data-key="85" id="Bb" data-status="nopress" class="black-key">Bb</div>
+        </li>
+        <li data-note="495-B.mp3" data-key="74" id="B" data-status="nopress" class="white-key">B</li>
+        <li data-note="523-C.mp3" data-key="75" id="C1" data-status="nopress" class="white-key">C</li>
+            `
+        }
+        if(e.target.matches("#samples2")) {
+            keyboard.innerHTML = `
+        <li data-note="523-C.mp3" data-key="65" id="C" data-status="nopress" class="white-key"> C
+            <div data-note="545-C-sharp.mp3" data-key="87" id="Db" data-status="nopress" class="black-key">Db</div>
+        </li>
+        <li data-note="587-D.mp3" data-key="83" id="D" data-status="nopress" class="white-key">D
+            <div data-note="622-D-sharp.mp3" data-key="69" id="Eb" data-status="nopress" class="black-key">Eb</div>
+        </li>
+        <li data-note="659-E.mp3" data-key="68" id="E" data-status="nopress" class="white-key">E</li>
+        <li data-note="698-F.mp3" data-key="70" id="F" data-status="nopress" class="white-key">F
+            <div data-note="698-F-sharp.mp3" data-key="84" id="Gb" data-status="nopress" class="black-key">Gb</div>
+        </li>
+        <li data-note="783-G.mp3" data-key="71" id="G" data-status="nopress" class="white-key">G
+            <div data-note="830-G-sharp.mp3" data-key="89" id="Ab" data-status="nopress" class="black-key">Ab</div>
+        </li>
+        <li data-note="880-A.mp3" data-key="72" id="A" data-status="nopress" class="white-key">A
+            <div data-note="932-A-sharp.mp3" data-key="85" id="Bb" data-status="nopress" class="black-key">Bb</div>
+        </li>
+        <li data-note="987-B.mp3" data-key="74" id="B" data-status="nopress" class="white-key">B</li>
+        <li data-note="1046-C.mp3" data-key="75" id="C1" data-status="nopress" class="white-key">C</li>
+            `
+        }
+        if(e.target.matches("#samples3")) {
+            keyboard.innerHTML = `
+        <li data-note="Pad14.wav" data-key="65" id="C" data-status="nopress" class="white-key"> C
+            <div data-note="Pad2.wav" data-key="87" id="Db" data-status="nopress" class="black-key">Db</div>
+        </li>
+        <li data-note="Pad3.wav" data-key="83" id="D" data-status="nopress" class="white-key">D
+            <div data-note="Pad4.wav" data-key="69" id="Eb" data-status="nopress" class="black-key">Eb</div>
+        </li>
+        <li data-note="Pad5.wav" data-key="68" id="E" data-status="nopress" class="white-key">E</li>
+        <li data-note="Pad6.wav" data-key="70" id="F" data-status="nopress" class="white-key">F
+            <div data-note="Pad7.wav" data-key="84" id="Gb" data-status="nopress" class="black-key">Gb</div>
+        </li>
+        <li data-note="Pad8.wav" data-key="71" id="G" data-status="nopress" class="white-key">G
+            <div data-note="Pad9.wav" data-key="89" id="Ab" data-status="nopress" class="black-key">Ab</div>
+        </li>
+        <li data-note="Pad10.wav" data-key="72" id="A" data-status="nopress" class="white-key">A
+            <div data-note="Pad11.wav" data-key="85" id="Bb" data-status="nopress" class="black-key">Bb</div>
+        </li>
+        <li data-note="Pad12.wav" data-key="74" id="B" data-status="nopress" class="white-key">B</li>
+        <li data-note="Pad13.wav" data-key="75" id="C1" data-status="nopress" class="white-key">C</li>
+            `
+        }
+    })
+}
 
 function keyHandler() {
 

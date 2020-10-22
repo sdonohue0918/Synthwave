@@ -14,52 +14,61 @@
 </head>
 <body>
     <div id="synth" class="flex-container">
+        <img id="logo" src="./public/images/ya.png">
     <div id="playbar">
         <div id="tray">
-            <button id="record">Rec</button>
-            <button class="stop" id="play">Stop</button>
+            <button id="record">◉</button>
+            <button class="stop" id="play">▣</button>
+            <button class="sound" id="samples1">♩</button>
+            <button class="sound" id="samples2">♩</button>
+            <button class="sound" id="samples3">♩</button>
         </div>
     </div>
     <ul class="keys" id="keyboard">
-        <li data-note="261-C" data-key="65" id="C" data-status="nopress" class="white-key"> C
-            <div data-note="277-C-sharp" data-key="87" id="Db" data-status="nopress" class="black-key">Db
-            </div>
+        <li data-note="261-C.mp" data-key="65" id="C" data-status="nopress" class="white-key"> C
+            <div data-note="277-C-sharp.mp" data-key="87" id="Db" data-status="nopress" class="black-key">Db</div>
         </li>
-        <li data-note="293-D" data-key="83" id="D" data-status="nopress" class="white-key">D
-            <div data-note="311-D-sharp" data-key="69" id="Eb" data-status="nopress" class="black-key">Eb
-            </div>
+        <li data-note="293-D.mp" data-key="83" id="D" data-status="nopress" class="white-key">D
+            <div data-note="311-D-sharp.mp" data-key="69" id="Eb" data-status="nopress" class="black-key">Eb</div>
         </li>
-        <li data-note="329-E" data-key="68" id="E" data-status="nopress" class="white-key">E
+        <li data-note="329-E.mp" data-key="68" id="E" data-status="nopress" class="white-key">E</li>
+        <li data-note="349-F.mp" data-key="70" id="F" data-status="nopress" class="white-key">F
+            <div data-note="369F-sharp.mp" data-key="84" id="Gb" data-status="nopress" class="black-key">Gb</div>
         </li>
-        <li data-note="349-F" data-key="70" id="F" data-status="nopress" class="white-key">F
-            <div data-note="369F-sharp" data-key="84" id="Gb" data-status="nopress" class="black-key">Gb
-            </div>
+        <li data-note="391-G.mp" data-key="71" id="G" data-status="nopress" class="white-key">G
+            <div data-note="415-G-sharp.mp" data-key="89" id="Ab" data-status="nopress" class="black-key">Ab</div>
         </li>
-        <li data-note="391-G" data-key="71" id="G" data-status="nopress" class="white-key">G
-            <div data-note="415-G-sharp" data-key="89" id="Ab" data-status="nopress" class="black-key">Ab
-            </div>
+        <li data-note="440-A.mp" data-key="72" id="A" data-status="nopress" class="white-key">A
+            <div data-note="466-A-sharp.mp" data-key="85" id="Bb" data-status="nopress" class="black-key">Bb</div>
         </li>
-        <li data-note="440-A" data-key="72" id="A" data-status="nopress" class="white-key">A
-            <div data-note="466-A-sharp" data-key="85" id="Bb" data-status="nopress" class="black-key">Bb
-            </div>
-        </li>
-        <li data-note="495-B" data-key="74" id="B" data-status="nopress" class="white-key">B
-        </li>
-        <li data-note="523-C" data-key="75" id="C1" data-status="nopress" class="white-key">C
-        </li>
+        <li data-note="495-B.mp" data-key="74" id="B" data-status="nopress" class="white-key">B</li>
+        <li data-note="523-C.mp" data-key="75" id="C1" data-status="nopress" class="white-key">C</li>
     </ul>
 
+<div id="features">
     <div id="sound-clips">
         <audio controls id="newRecording" src=""></audio>
     </div>
 
-    <div id="form-container">
+    <div id="comments">
+        <ul>
+            <li><b style="margin-bottom: 0;">Ron: </b>Wow so cool</li>
+            <li><b style="margin-bottom: 0;">Jake: </b>I want an option with no sound</li>
+            <li><b style="margin-bottom: 0;">Xiaoxiang: </b>Please try the third sample pack</li>
+            <li><b style="margin-bottom: 0;">Paul: </b>Who am I</li>
+            <li><b style="margin-bottom: 0;">Zihou: </b>What is time</li>
+            <li><b style="margin-bottom: 0;">Madison: </b>I accidently the whole thing</li>
+            <li><b style="margin-bottom: 0;">Beatrice: </b>How many times?</li>
+        </ul>
+    </div>
+</div>
 
+    <!-- <div id="form-container">
     </div>
 
     <div id="file-container" hidden>
         <audio id="file" src=></audio>
-    </div>
+    </div> -->
     
 </body>
 </html>
