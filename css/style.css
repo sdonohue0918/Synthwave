@@ -19,7 +19,7 @@ div#synth {
     margin-left: 0vw;
     width: 800px;
     height: 400px;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     border-radius: 5px;
     background: rgba(103, 65, 114, 0.5);
 }
@@ -186,6 +186,7 @@ div#comments {
     line-height:3em;
     justify-content: center;
     align-items: center;
+    border-radius: 5px;
     overflow:auto;
     float: right;
     width: 58%;
@@ -193,9 +194,15 @@ div#comments {
     background-color: rgba(103, 65, 114, 0.5);
 }
 
+::-webkit-scrollbar {
+    color: transparent;
+}
+
 textarea {
+    border-radius: 5px;
     resize: none;
     outline: none;
+    border: none;
     font-size: large;
     font-weight: 900px;
     color: rgb(220, 220, 220);
@@ -223,6 +230,8 @@ li {
 }
 
 #user {
+    border: none;
+    border-radius: 5px;
     font-size: large;
     font-weight: 900px;
     color: rgb(220, 220, 220);
