@@ -32,7 +32,9 @@ document.addEventListener('click', e => {
     } else if (e.target.matches('#song-submit')) {
             e.preventDefault()
             
-    }            
+    } else if (e.target.matches('#get')) {
+        getFile()
+    }          
 })
 
 
@@ -44,7 +46,7 @@ function recordAudio() {
     }
 
      navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-        let streamRecorder = new MediaRecorder(stream)
+        let streamRecorder = new MediaRecorder(stream, {type: 'audio/wav'})
         streamRecorder.start()
         
         
@@ -59,7 +61,10 @@ function recordAudio() {
 
         streamRecorder.onstop = function() {
             const audioTag = document.getElementById('newRecording')
-            let blob = new Blob(chunks, {'type': 'audio/mpeg-3'})
+            let blob = new Blob(chunks, {'type': "audio/wav"})
+
+            
+            
             let newUrl = URL.createObjectURL(blob)
             audioTag.src = newUrl
             let formContainer = document.getElementById('form-container')
@@ -72,12 +77,13 @@ function recordAudio() {
             formContainer.append(form)
 
             
+            
             const submitBtn = document.getElementById('song-submit')
             submitBtn.onclick = function() {
                 postSong(blob)
             }
 
-    
+            
             
             
 
@@ -102,17 +108,26 @@ function playAudio(source) {
         
 }
         
-        
+// function createFileFromBlob() {
+    
+// }
+
+
 function postSong(audio) {
-    let formData =  new FormData()
     let songForm = document.getElementById('song-form')
+    let file = new File([audio], `${songForm["name"].value}.wav`, {'type': 'audio/wav'})
+    let formData =  new FormData()
     let name = songForm["name"].value
     console.log(name)
     let author = songForm["author"].value
     console.log(author)
+    console.log(file)
     formData.append("name", songForm["name"].value)
     formData.append("author", songForm["author"].value)
-    formData.append("file", audio)
+    formData.append("file", file)
+
+    
+    
 
             
     const submit = document.getElementById("song-submit")
@@ -150,18 +165,29 @@ function clearForm() {
 function getFile() {
 
 
-    options = {
-        method: "GET",
-        headers: {
-            "content-type" : "audio/mpeg-3"
-        }
-    }
-    fetch(`http://localhost:3000/songs/20`, options).then(function(response) {
-        return response.blob()
-    }).then(function(blob) {
-        const playBar = document.getElementById('newRecording')
-        source = URL.createObjectURL(blob)
-        playBar.src = source
+    
+    fetch(`http://localhost:3000/songs/20`).then(function(response) {
+        return response.text()
+    }).then(function(data) {
+        const playBar = document.getElementById('records')
+        
+       
+        const upload = new Audio(data)
+       
+        
+        
+        upload.autoplay
+        upload.play()
+
+        
+
+
+
+
+
+        
+        
+        
         
 
         
