@@ -3,7 +3,16 @@ document.addEventListener("DOMContentLoaded", function() {
     soundHandler()
     getUserMedia()
     sampleHandler()
+    commentHandler()
 })
+
+function commentHandler() {
+    // let commentForm = document.querySelector("#features")
+    // let form = document.createElement("div")
+    // form.classList.add("hotdog")
+    // form.innerText = "ADASDAS"
+    // commentForm.append(form)
+}
 
 function getUserMedia() {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
