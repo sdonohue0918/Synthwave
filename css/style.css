@@ -213,7 +213,7 @@ textarea {
 
 label {
     color: rgb(220, 220, 220);
-    margin-top: 1vh;
+    margin-top: 0.75vh;
 }
 
 ul {
@@ -230,6 +230,7 @@ li {
 }
 
 #user {
+    width: 464px;
     border: none;
     border-radius: 5px;
     font-size: large;
@@ -243,9 +244,17 @@ li {
 #newRecording {
     justify-content: center;
     align-items: center;
-    margin-top: 2%;
+    margin-top: 3%;
+    margin-left: 1%;
     float: left;
 }
+
+#new {
+    margin-top: 0.25vh;
+    margin-left: 0.5%;
+    float: left;
+}
+
 
 article.clip {
     justify-content: center;
@@ -278,6 +287,17 @@ input#submit {
 ::placeholder {
     color: rgba(220, 220, 220, 0.5);
     -webkit-text-stroke: 0.3px black;
+}
+
+#nowplaying {
+    margin-top: 0.9vh;
+    height: 50px;
+    border-radius: 5px;
+    background-color: rgba(103, 65, 114, 0.5);
+}
+
+#content {
+    width: 464px;
 }
 
 @keyframes pulse{
