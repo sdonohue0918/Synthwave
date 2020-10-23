@@ -127,6 +127,17 @@ div#sound-clips {
     flex-flow: row;
 }
 
+div#sound-clips2 {
+    list-style: none;
+    /* justify-content: space-between; */
+    display: table-row;
+    padding-inline-start: 5%;
+    padding-inline-end: 5%;
+    margin-top: 5vh;
+    height: 30px;
+    flex-flow: row;
+}
+
 button.delete {
     width: 30px;
 	height: 30px;
@@ -259,7 +270,7 @@ li {
 article.clip {
     justify-content: center;
     align-items: center;
-    margin-top: 2%;
+    margin-top: 1%;
 }
 
 audio {
