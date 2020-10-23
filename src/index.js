@@ -52,10 +52,14 @@ function crudHandler() {
 
 function postSong(audio) {
     let songForm = document.getElementById('song-form')
-    let file = new File([audio], `${songForm["name"].value}.wav`, {'type': 'audio/wav'})
     let formData =  new FormData()
-    formData.append("name", songForm["name"].value)
-    formData.append("author", songForm["author"].value)
+    let nameStr = songForm["name"].value
+    let authorStr = songForm["author"].value
+    let newName = nameStr.replace(/\s/g, '')
+    let newAuthor = authorStr.replace(/\s/g, '')
+    let file = new File([audio], `${newName}.wav`, {'type': 'audio/wav'})
+    formData.append("name", newName)
+    formData.append("author", newAuthor)
     formData.append("file", file)
 
     let options = {
