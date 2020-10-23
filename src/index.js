@@ -3,11 +3,10 @@ document.addEventListener("DOMContentLoaded", function() {
     soundHandler()
     getUserMedia()
     sampleHandler()
-    commentHandler()
     submitHandler()
+    getComments()
 })
 
-function commentHandler() {
     function getComments() {
         fetch("http://localhost:3000/comments")
         .then(resp => resp.json())
@@ -24,14 +23,10 @@ function commentHandler() {
 
     function renderComment(comment) {
         const commentSection = document.querySelector("#commentlist")
-        console.log(comment)
         let newLi = document.createElement("li")
         newLi.innerHTML = `<b>${comment.user.name}:</b> ${comment.content}`
-        console.log(newLi)
         commentSection.append(newLi)
     }
-    getComments()
-}
 
 function submitHandler() {
     document.addEventListener("submit", e => {
@@ -56,8 +51,8 @@ function submitHandler() {
         fetch("http://localhost:3000/comments", options)
         .then(resp => resp.json())
         .then(comment => {
-        console.log(comment)
-        form.reset()
+            getComments()
+            form.reset()
         })
     }
 }
