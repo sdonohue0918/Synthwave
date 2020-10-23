@@ -90,61 +90,60 @@ let counter = 0
 function recordAudio() {
     window.AudioContext = window.AudioContext || window.webkitAudioContext
     let context = new AudioContext()
-    // if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices.getUserMedia ({audio: true})
     .then(function(stream) {
-    const mediaRecorder = new MediaRecorder(stream);
-    const record = document.querySelector('#record');
-    const stop = document.querySelector('.stop');
-    record.onclick = function() {
-    mediaRecorder.start();
-    record.classList.add("active");
-    }
+        const mediaRecorder = new MediaRecorder(stream)
+        const record = document.querySelector('#record')
+        const stop = document.querySelector('.stop')
+        record.onclick = function() {
+            mediaRecorder.start()
+            record.classList.add("active")
+        }
 
-    let chunks = [];
+        let chunks = []
 
-    mediaRecorder.ondataavailable = function(e) {
-    chunks.push(e.data);
-    }
+        mediaRecorder.ondataavailable = function(e) {
+            chunks.push(e.data)
+        }
 
-    stop.onclick = function() {
-    mediaRecorder.stop();
-    record.classList.remove("active");
-    }
-    
-    mediaRecorder.onstop = function(e) {
-    const soundClips = document.querySelector('#sound-clips');
-    const clipContainer = document.createElement('article');
-    const audio = document.createElement('audio');
-    const deleteButton = document.createElement('button');
-    const saveButton = document.createElement('button');
+        stop.onclick = function() {
+            mediaRecorder.stop()
+            record.classList.remove("active")
+        }
+        
+        mediaRecorder.onstop = function(e) {
+            const soundClips = document.querySelector('#sound-clips')
+            const clipContainer = document.createElement('article')
+            const audio = document.createElement('audio')
+            const deleteButton = document.createElement('button')
+            const saveButton = document.createElement('button')
 
-    clipContainer.classList.add('clip');
-    audio.setAttribute('controls', '');
-    deleteButton.innerHTML = "X";
-    deleteButton.classList.add("delete")
-    saveButton.innerText = "↓"
-    saveButton.classList.add("save")
+            clipContainer.classList.add('clip')
+            audio.setAttribute('controls', '')
+            deleteButton.innerHTML = "X"
+            deleteButton.classList.add("delete")
+            saveButton.innerText = "↓"
+            saveButton.classList.add("save")
 
-    clipContainer.appendChild(audio);
+            clipContainer.appendChild(audio)
 
-    let oldOne = document.querySelector("#new")
-    if(oldOne) {
-        oldOne.remove()
-    }
+            let oldOne = document.querySelector("#new")
+            if(oldOne) {
+                oldOne.remove()
+            }
 
-    soundClips.appendChild(clipContainer);
-    clipContainer.appendChild(deleteButton);
-    clipContainer.appendChild(saveButton)
+            soundClips.appendChild(clipContainer)
+            clipContainer.appendChild(deleteButton)
+            clipContainer.appendChild(saveButton)
 
-    const blob = new Blob(chunks, { 'type' : 'audio/wav' });
-    counter += 1
-    tempBlobs[counter] = blob
-    chunks = [];
-    const audioURL = window.URL.createObjectURL(blob);
-    audio.src = audioURL;
-    audio.dataset.num = counter
-    }
+            const blob = new Blob(chunks, { 'type' : 'audio/wav' })
+            counter += 1
+            tempBlobs[counter] = blob
+            chunks = []
+            const audioURL = window.URL.createObjectURL(blob)
+            audio.src = audioURL
+            audio.dataset.num = counter
+        }
     })
 }
 
@@ -310,29 +309,32 @@ function sampleHandler() {
 }
 
 function soundHandler() {
-
-    function playAudio(keyCode){
-        var audio = new Audio('media/'+keyCode);
+    function playAudio(keyCode) {
+        var audio = new Audio('media/'+keyCode)
         audio.play();
     }
+
     function pressKey(keyCode){
-        let key = document.querySelectorAll("[data-key='"+keyCode+"']")[0];
+        let key = document.querySelectorAll("[data-key='"+keyCode+"']")[0]
         if (key && key.classList.contains('is-active') == false) {
-        key.classList.add('is-active'); 
-        playAudio(key.dataset.note);
+            key.classList.add('is-active')
+            playAudio(key.dataset.note)
         }
     }
-    function releaseKey(keyCode){
-        let key = document.querySelectorAll("[data-key='"+keyCode+"']")[0];
+
+    function releaseKey(keyCode) {
+        let key = document.querySelectorAll("[data-key='"+keyCode+"']")[0]
         if (key) {
-            key.classList.remove('is-active'); 
+            key.classList.remove('is-active')
         }
     }
-    document.addEventListener("keydown",function(event){
-        pressKey(event.keyCode);
+
+    document.addEventListener("keydown",function(event) {
+        pressKey(event.keyCode)
     })
-    document.addEventListener("keyup",function(event){
-        releaseKey(event.keyCode);
+
+    document.addEventListener("keyup",function(event) {
+        releaseKey(event.keyCode)
     })
 }
 
@@ -354,7 +356,7 @@ function getComments() {
     fetch("http://localhost:3000/comments")
     .then(resp => resp.json())
     .then(comments => {
-    renderComments(comments)
+        renderComments(comments)
     })
 }
 
@@ -415,8 +417,6 @@ function getAllSongs() {
 }
 
 function renderSongList(songs) {
-    // const fetchButton = document.getElementById('test')
-    // fetchButton.disabled = true
     const listContainer = document.getElementById("audiolist")
     listContainer.innerHTML = ""
     for (const song of songs) {
