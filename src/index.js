@@ -44,7 +44,7 @@ function recordAudio() {
     deleteButton.classList.add("delete")
 
     clipContainer.appendChild(audio);
-    let oldOne = document.querySelector("#newRecording")
+    let oldOne = document.querySelector("#new")
     if(oldOne) {
         oldOne.remove()
     }
