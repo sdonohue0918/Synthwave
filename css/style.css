@@ -285,13 +285,6 @@ audio {
     float: right;
 }
 
-input#submit {
-    width: 100px;
-	height: 30px;
-	font-weight: bolder;
-	background-color: rgba(78, 157, 0, 1);;
-    outline: none;
-}
 
 ::placeholder {
     color: rgba(220, 220, 220, 0.5);
@@ -338,6 +331,45 @@ button.load {
     font-weight: bolder;
 	background-color: rgba(78, 157, 0, 0.666);;
     outline: none;
+}
+
+button#song-submit {
+    margin-left: 10px;
+    margin-top: 2px;
+    height: 30px;
+    font-weight: bolder;
+	background-color: rgba(78, 157, 0, 0.666);;
+    outline: none;
+}
+
+input#submit {
+    width: 100px;
+    height: 30px;
+    font-weight: bolder;
+    background-color: rgba(78, 157, 0, 1);;
+    outline: none;
+}
+
+#song-form {
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    position: fixed;
+    width: 300px;
+    height: 200px;
+    background-color: rgb(0, 0, 0, 0.8);
+}
+
+input#artist {
+    margin-left: 1vw;
+    margin-top: 5vh;
+    background-color: rgba(103, 65, 114, 0.8);
+}
+
+input#title {
+    margin-left: 1vw;
+    margin-top: 5vh;
+    background-color: rgba(103, 65, 114, 0.8);
 }
 
 #content {

@@ -8,64 +8,81 @@ document.addEventListener("DOMContentLoaded", function() {
     getAllSongs()
     formNoSound()
     crudHandler()
+    submitHandler()
 })
 
 function crudHandler() {
     document.addEventListener("click", e => {
         if(e.target.matches("button.save")) {
-            console.dir(e.target.parentElement)
+            const formContainer = document.querySelector("#form-container")
+            const form = document.createElement('form')
+            const formSubmit = document.querySelector("#song-submit")
+            form.id = "song-form"
+            form.innerHTML = `
+            <input id="title" type="text" name="name" placeholder="Song name..." >
+            <input id="artist" type="text" name="author" placeholder="Artist name..." >
+            <button id="song-submit" type="submit">Upload</button>`
+            let blobKey = e.target.parentElement.children[0].dataset.num
+            form.dataset.key = blobKey
+            formContainer.append(form)
         }
         if(e.target.matches("button.load")) {
-            console.dir(e.target)
+            let player = document.querySelector("#newRecording")
+            let songName = e.target.dataset.song
+            let loadPath = "/Users/gabrielhicks/Flatiron/code/3Mod/Project/wednesday/Synthwave-backend/app/songs/"+songName+".wav"
+            player.src = loadPath
         }
         if(e.target.matches("button.delete")) {
-            console.dir(e.target)
+            e.target.parentElement.remove()
         }
         if(e.target.matches("button.destroy")) {
-            console.dir(e.target)
+            function deleteSongFile(songId) {
+                options = {
+                    method: "DELETE"
+                }
+                fetch(`http://localhost:3000/songs/${songId}`, options)
+                .then(response => response.json())
+                .then(song => getAllSongs())
+            }
         }
     }) 
+}
 
-    function postSong(audio) {
-        let songForm = document.getElementById('song-form')
-        let file = new File([audio], `${songForm["name"].value}.wav`, {'type': 'audio/wav'})
-        let formData =  new FormData()
-        // console.log(name)
-        // console.log(author)
-        // console.log(file)
-        formData.append("name", songForm["name"].value)
-        formData.append("author", songForm["author"].value)
-        formData.append("file", file)
-
-        let options = {
-            method: 'POST',
-            mode: 'no-cors',
-            credentials: 'same-origin',
-            body: formData
-        }
-        fetch('http://localhost:3000/songs/', options).then(function(response) {
-            return response.json()
-        }).then(function(json) {
-            clearForm()
-            console.log(json)
-        }).catch(function(error) {
-            console.log("error: " + error)
-        })
-        
-        function clearForm() {
+function postSong(audio) {
+    let songForm = document.getElementById('song-form')
+    let file = new File([audio], `${songForm["name"].value}.wav`, {'type': 'audio/wav'})
+    let formData =  new FormData()
+    formData.append("name", songForm["name"].value)
+    formData.append("author", songForm["author"].value)
+    formData.append("file", file)
+    console.log(formData)
+    let options = {
+        method: 'POST',
+        mode: 'no-cors',
+        credentials: 'same-origin',
+        body: formData
+    }
+    // fetch('http://localhost:3000/songs/', options).then(function(response) {
+    //     return response.json()
+    // }).then(function(json) {
+    //     clearForm()
+    //     getAllSongs()
+    //     console.log(json)
+    // }).catch(function(error) {
+    //     console.log("error: " + error)
+    // })
+    let tempId = songForm.dataset.key
+    let tempSong = document.querySelector(`[data-num="${tempId}"]`)
+    function clearForm() {
         let formContainer = document.getElementById('form-container')
         formContainer.innerHTML = ''
-        let form = document.getElementById('song-form')
-        }
     }
-
-    // deleteButton.onclick = function(e) {
-    // let evtTgt = e.target;
-    // console.log(e.target)
-    // evtTgt.previousSibling.remove();
-    // evtTgt.remove();
-    // }
+    clearForm()
+    tempSong.parentElement.remove()
 }
+
+let tempBlobs = {}
+let counter = 0
 
 function recordAudio() {
     window.AudioContext = window.AudioContext || window.webkitAudioContext
@@ -103,7 +120,7 @@ function recordAudio() {
     audio.setAttribute('controls', '');
     deleteButton.innerHTML = "X";
     deleteButton.classList.add("delete")
-    saveButton.innerText = "💾"
+    saveButton.innerText = "↓"
     saveButton.classList.add("save")
 
     clipContainer.appendChild(audio);
@@ -118,20 +135,12 @@ function recordAudio() {
     clipContainer.appendChild(saveButton)
 
     const blob = new Blob(chunks, { 'type' : 'audio/wav' });
-    console.log(blob)
+    counter += 1
+    tempBlobs[counter] = blob
     chunks = [];
     const audioURL = window.URL.createObjectURL(blob);
     audio.src = audioURL;
-
-    const formContainer = document.querySelector("#form-container")
-    const form = document.createElement('form')
-    form.id = "song-form"
-    form.innerHTML = `
-    <input type="text" name="name" placeholder="Enter a Name for your Song" >
-    <input type="text" name="author" placeholder="Enter your Name" >
-    <button id="song-submit" type="submit">Upload Your Song</button>`
-    formContainer.append(form)
-
+    audio.dataset.num = counter
     }
     })
 }
@@ -362,7 +371,15 @@ function renderComment(comment) {
 function submitHandler() {
     document.addEventListener("submit", e => {
         e.preventDefault()
-        postComments()
+        if(e.target.matches("form#commentform")) {
+            postComments()
+        }
+        if(e.target.matches("form#song-form")) {
+            let blobKey = e.target.dataset.key
+            let saveBlob = tempBlobs[blobKey]
+            console.log(saveBlob)
+            postSong(saveBlob)
+        }
     })
 
     function postComments() {
