@@ -119,13 +119,27 @@ div#sound-clips {
 
 div#sound-clips2 {
     list-style: none;
-    /* justify-content: space-between; */
-    display: table-row;
-    padding-inline-start: 5%;
-    padding-inline-end: 5%;
-    margin-top: 5vh;
+    justify-content: space-between;
+    display: flex;
+    padding-inline-start: 1.5%;
+    padding-inline-end: 1.5%;
     height: 30px;
     flex-flow: row;
+}
+
+#newRecording {
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-left: 1%;
+    float: left;
+}
+
+canvas {
+    margin-top: 2.5px;
+    width: 450px;
+    height: 45px;
+    float: right;
 }
 
 button.delete {
@@ -265,14 +279,6 @@ li {
     background-color: rgba(103, 65, 114, 0.5);
     -webkit-text-stroke: 0.3px black;
     outline: none;
-}
-
-#newRecording {
-    justify-content: center;
-    align-items: center;
-    margin-top: 3%;
-    margin-left: 1%;
-    float: left;
 }
 
 .new {
