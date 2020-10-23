@@ -55,31 +55,27 @@ function postSong(audio) {
     formData.append("name", songForm["name"].value)
     formData.append("author", songForm["author"].value)
     formData.append("file", file)
-    console.log(formData)
+
     let options = {
         method: 'POST',
         mode: 'no-cors',
         credentials: 'same-origin',
         body: formData
     }
-    // fetch('http://localhost:3000/songs/', options).then(function(response) {
-    //     return response.json()
-    // }).then(function(json) {
-    //     clearForm()
-    //     getAllSongs()
-    //     console.log(json)
-    // }).catch(function(error) {
-    //     console.log("error: " + error)
-    // })
-    let tempId = songForm.dataset.key
-    let tempSong = document.querySelector(`[data-num="${tempId}"]`)
+
+    fetch('http://localhost:3000/songs/', options)
+    .then(response => {
+        let tempId = songForm.dataset.key
+        let tempSong = document.querySelector(`[data-num="${tempId}"]`)
+        tempSong.parentElement.remove()
+        clearForm()
+        getAllSongs()
+    })
+}
     function clearForm() {
         let formContainer = document.getElementById('form-container')
         formContainer.innerHTML = ''
     }
-    clearForm()
-    tempSong.parentElement.remove()
-}
 
 let tempBlobs = {}
 let counter = 0
@@ -425,6 +421,18 @@ function renderSongList(songs) {
         loadButton.innerText = "Load"
         songLi.append(loadButton)
     }
+}
+
+function renderSong(song) {
+    const listContainer = document.getElementById("audiolist")
+    let songLi = document.createElement('li')
+    listContainer.append(songLi)
+    songLi.innerHTML = `<b>${song.author}:</b> ${song.name}`
+    let loadButton = document.createElement('button')
+    loadButton.dataset.song = `${song.name}`
+    loadButton.classList.add("load")
+    loadButton.innerText = "Load"
+    songLi.append(loadButton)
 }
 
 function getSongFile(song) {
