@@ -36,6 +36,8 @@ function crudHandler() {
             e.target.parentElement.remove()
         }
         if(e.target.matches("button.destroy")) {
+            let songId = e.target.dataset.id
+            deleteSongFile(songId)
             function deleteSongFile(songId) {
                 options = {
                     method: "DELETE"
@@ -72,10 +74,11 @@ function postSong(audio) {
         getAllSongs()
     })
 }
-    function clearForm() {
-        let formContainer = document.getElementById('form-container')
-        formContainer.innerHTML = ''
-    }
+
+function clearForm() {
+    let formContainer = document.getElementById('form-container')
+    formContainer.innerHTML = ''
+}
 
 let tempBlobs = {}
 let counter = 0
@@ -411,15 +414,21 @@ function renderSongList(songs) {
     // const fetchButton = document.getElementById('test')
     // fetchButton.disabled = true
     const listContainer = document.getElementById("audiolist")
+    listContainer.innerHTML = ""
     for (const song of songs) {
         let songLi = document.createElement('li')
         listContainer.append(songLi)
         songLi.innerHTML = `<b>${song.author}:</b> ${song.name}`
         let loadButton = document.createElement('button')
-        loadButton.dataset.song = `${song.name}`
+        let destroyButton = document.createElement("button")
+        loadButton.dataset.song = song.name
+        destroyButton.classList.add("destroy")
+        destroyButton.innerText = "X"
+        destroyButton.dataset.id = song.id
         loadButton.classList.add("load")
-        loadButton.innerText = "Load"
+        loadButton.innerText = "↑"
         songLi.append(loadButton)
+        songLi.append(destroyButton)
     }
 }
 

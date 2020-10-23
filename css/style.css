@@ -15,7 +15,7 @@ body {
 }
 
 div#synth {
-    margin-top: 5vh;
+    margin-top: 4vh;
     margin-left: 0vw;
     width: 800px;
     height: 400px;
@@ -135,6 +135,16 @@ button.delete {
 	height: 30px;
 	font-weight: bolder;
 	background-color: rgba(78, 157, 0, 0.666);;
+    outline: none;
+}
+
+button.destroy {
+    margin-left: 2px;
+    top: 0%;
+    width: 30px;
+	height: 30px;
+	font-weight: bolder;
+	background-color: rgba(173,0,0,0.666);
     outline: none;
 }
 
@@ -304,7 +314,7 @@ audio {
     justify-content: center;
     align-items: center;
     overflow:auto;
-    height: 200px;
+    height: 210px;
     width: 41.5%;
     float: left;
     margin-right: 0%;
@@ -346,7 +356,7 @@ input#submit {
     width: 100px;
     height: 30px;
     font-weight: bolder;
-    background-color: rgba(78, 157, 0, 1);;
+    background-color: rgba(78, 157, 0, 0.666);;
     outline: none;
 }
 
