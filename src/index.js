@@ -33,6 +33,7 @@ function recordAudio() {
     }
     
     mediaRecorder.onstop = function(e) {
+    disableSound()
     const soundClips = document.querySelector('#sound-clips');
     const clipContainer = document.createElement('article');
     const audio = document.createElement('audio');
@@ -211,6 +212,7 @@ function sampleHandler() {
     document.addEventListener("click", e => {
         const keyboard = document.querySelector("#keyboard")
         if(e.target.matches("#samples1")) {
+            enableSound()
             keyboard.innerHTML = `
         <li data-note="261-C.mp3" data-key="65" id="C" data-status="nopress" class="white-key"> C
             <div data-note="277-C-sharp.mp3" data-key="87" id="Db" data-status="nopress" class="black-key">Db</div>
@@ -233,6 +235,7 @@ function sampleHandler() {
             `
         }
         if(e.target.matches("#samples2")) {
+            enableSound()
             keyboard.innerHTML = `
         <li data-note="523-C.mp3" data-key="65" id="C" data-status="nopress" class="white-key"> C
             <div data-note="545-C-sharp.mp3" data-key="87" id="Db" data-status="nopress" class="black-key">Db</div>
@@ -255,6 +258,7 @@ function sampleHandler() {
             `
         }
         if(e.target.matches("#samples3")) {
+            enableSound()
             keyboard.innerHTML = `
         <li data-note="Pad14.wav" data-key="65" id="C" data-status="nopress" class="white-key"> C
             <div data-note="Pad2.wav" data-key="87" id="Db" data-status="nopress" class="black-key">Db</div>
@@ -277,6 +281,39 @@ function sampleHandler() {
             `
         }
     })
+}
+
+function disableSound() {
+    const whiteKeys = document.getElementsByClassName('white-key')
+    const blackKeys = document.getElementsByClassName('black-key')
+    const blackKeyArray = [...blackKeys]
+    console.log(blackKeyArray)
+    const whiteKeyArray = [...whiteKeys]
+    console.log(whiteKeyArray)
+    for (const key of whiteKeyArray) {
+        key.classList.add('disabled')
+    }
+
+    for (const key of blackKeyArray) {
+        key.classList.add('disabled')
+    }
+}
+
+function enableSound() {
+    const whiteKeys = document.getElementsByClassName('white-key')
+    const blackKeys = document.getElementsByClassName('black-key')
+    const blackKeyArray = [...blackKeys]
+    console.log(blackKeyArray)
+    const whiteKeyArray = [...whiteKeys]
+    console.log(whiteKeyArray)
+    for (const key of whiteKeyArray) {
+        key.classList.remove('disabled')
+    }
+
+    for (const key of blackKeyArray) {
+        key.classList.remove('disabled')
+    }
+
 }
 
 function soundHandler() {
