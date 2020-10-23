@@ -4,14 +4,62 @@ document.addEventListener("DOMContentLoaded", function() {
     getUserMedia()
     sampleHandler()
     commentHandler()
+    submitHandler()
 })
 
 function commentHandler() {
-    // let commentForm = document.querySelector("#features")
-    // let form = document.createElement("div")
-    // form.classList.add("hotdog")
-    // form.innerText = "ADASDAS"
-    // commentForm.append(form)
+    function getComments() {
+        fetch("http://localhost:3000/comments")
+        .then(resp => resp.json())
+        .then(comments => {
+        renderComments(comments)
+        })
+    }
+
+    function renderComments(comments) {
+        for(comment of comments) {
+            renderComment(comment)
+        }
+    }
+
+    function renderComment(comment) {
+        const commentSection = document.querySelector("#commentlist")
+        console.log(comment)
+        let newLi = document.createElement("li")
+        newLi.innerHTML = `<b>${comment.user.name}:</b> ${comment.content}`
+        console.log(newLi)
+        commentSection.append(newLi)
+    }
+    getComments()
+}
+
+function submitHandler() {
+    document.addEventListener("submit", e => {
+        e.preventDefault()
+        postComments()
+    })
+
+        function postComments() {
+        const form = document.querySelector("form")
+        let username = form.user.value
+        let content = form.content.value
+        const newComment = {user: username, content: content}
+        let options = {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+                "accept": "application/json"
+            },
+            body: JSON.stringify(newComment)
+        }
+
+        fetch("http://localhost:3000/comments", options)
+        .then(resp => resp.json())
+        .then(comment => {
+        console.log(comment)
+        form.reset()
+        })
+    }
 }
 
 function getUserMedia() {
