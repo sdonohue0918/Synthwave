@@ -307,6 +307,31 @@ input#submit {
     background-color: rgba(103, 65, 114, 0.5);
 }
 
+#audiobank {
+    margin-top: 0.8%;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    width: 41.5%;
+    float: left;
+    margin-right: 0%;
+    background-color: rgba(103, 65, 114, 0.5);
+}
+
+/* div#comments {
+    margin-top: 0.8%;
+    line-height:3em;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    overflow:auto;
+    float: right;
+    width: 58%;
+    height: 200px;
+    background-color: rgba(103, 65, 114, 0.5);
+} */
+
 #content {
     width: 464px;
 }
