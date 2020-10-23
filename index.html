@@ -7,39 +7,71 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <title>Synthwave</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.4.9/Tone.js"></script>
     <link rel="stylesheet" href="css/style.css"/>
     <script src="src/index.js"></script>
+    
+    
 </head>
 <body>
-    <ul id="keyboard">
-        <div><button>Record</button></div>
-        <li id="C" data-status="nopress" class="key"> C
-            <div id="Db" data-status="nopress" class="bkey">Db</div>
+    <div id="synth" class="flex-container">
+        <img id="logo" src="./public/images/ya.png">
+    <div id="playbar">
+        <div id="tray">
+            <button id="record">◉</button>
+            <button class="stop" id="play">▣</button>
+            <button class="sound" id="samples1">♩</button>
+            <button class="sound" id="samples2">♩</button>
+            <button class="sound" id="samples3">♩</button>
+        </div>
+    </div>
+    <ul class="keys" id="keyboard">
+        <li data-note="261-C.mp" data-key="65" id="C" data-status="nopress" class="white-key"> C
+            <div data-note="277-C-sharp.mp" data-key="87" id="Db" data-status="nopress" class="black-key">Db</div>
         </li>
-        <!-- <li id="Db" data-status="nopress" class="bkey">Db</li> -->
-        <li id="D" data-status="nopress" class="key">D
-            <div id="Eb" data-status="nopress" class="bkey">Eb</div>
+        <li data-note="293-D.mp" data-key="83" id="D" data-status="nopress" class="white-key">D
+            <div data-note="311-D-sharp.mp" data-key="69" id="Eb" data-status="nopress" class="black-key">Eb</div>
         </li>
-        <!-- <li id="Eb" data-status="nopress" class="bkey">Eb</li> -->
-        <li id="E" data-status="nopress" class="key">E</li>
-        <li id="F" data-status="nopress" class="key">F
-            <div id="Gb" data-status="nopress" class="bkey">Gb</div>
+        <li data-note="329-E.mp" data-key="68" id="E" data-status="nopress" class="white-key">E</li>
+        <li data-note="349-F.mp" data-key="70" id="F" data-status="nopress" class="white-key">F
+            <div data-note="369F-sharp.mp" data-key="84" id="Gb" data-status="nopress" class="black-key">Gb</div>
         </li>
-        <!-- <li id="Gb" data-status="nopress" class="bkey">Gb</li> -->
-        <li id="G" data-status="nopress" class="key">G
-            <div id="Ab" data-status="nopress" class="bkey">Ab</div>
+        <li data-note="391-G.mp" data-key="71" id="G" data-status="nopress" class="white-key">G
+            <div data-note="415-G-sharp.mp" data-key="89" id="Ab" data-status="nopress" class="black-key">Ab</div>
         </li>
-        <!-- <li id="Ab" data-status="nopress" class="bkey">Ab</li> -->
-        <li id="A" data-status="nopress" class="key">A
-            <div id="Bb" data-status="nopress" class="bkey">Bb</div>
+        <li data-note="440-A.mp" data-key="72" id="A" data-status="nopress" class="white-key">A
+            <div data-note="466-A-sharp.mp" data-key="85" id="Bb" data-status="nopress" class="black-key">Bb</div>
         </li>
-        <!-- <li id="Bb" data-status="nopress" class="bkey">Bb</li> -->
-        <li id="B" data-status="nopress" class="key">B</li>
-        <li id="C1" data-status="nopress" class="key">C</li>
-        
+        <li data-note="495-B.mp" data-key="74" id="B" data-status="nopress" class="white-key">B</li>
+        <li data-note="523-C.mp" data-key="75" id="C1" data-status="nopress" class="white-key">C</li>
     </ul>
 
+<div id="features">
+    <div id="sound-clips">
+        <audio controls id="newRecording" src=""></audio>
+    </div>
+
+    <div id="comments">
+        <ul id="commentlist">
+            <!-- <li><b style="margin-bottom: 0;">Ron: </b>Wow so cool</li>
+            <li><b style="margin-bottom: 0;">Jake: </b>I want an option with no sound</li>
+            <li><b style="margin-bottom: 0;">Xiaoxiang: </b>Please try the third sample pack</li>
+            <li><b style="margin-bottom: 0;">Paul: </b>Who am I</li>
+            <li><b style="margin-bottom: 0;">Zihou: </b>What is time</li>
+            <li><b style="margin-bottom: 0;">Madison: </b>I accidently the whole thing</li>
+            <li><b style="margin-bottom: 0;">Beatrice: </b>How many times?</li> -->
+        </ul>
+    </div>
+    <form class="second" id="commentform">
+        <label><input type="text" name="user" id="user" placeholder="Name..."/></label>
+        <br>
+        <textarea name="content" id="content" cols="49" placeholder="Add comment..."></textarea>
+        <br>
+        <input type="submit" name="submit" id="submit" value="Submit" />
+    </form>
+</div>
+
+    <div id="form-container">
+    </div>
     
 </body>
 </html>

@@ -1,26 +1,60 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
-/* 
-#visualizer {
-    width: 426px;
-    height: 190px;
-    border: 1px solid black;
-    margin-left: auto;
-} */
+
 
 body {
+    margin-top: 0vh;
+    margin-bottom: 0vh;
     display: flex;
+    min-height: 50vh;
+    min-width: 50vh;
+    background-image: url("https://ourmoblog.files.wordpress.com/2016/12/larger-23.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
 }
 
-ul {
+div#synth {
+    margin-top: 10vh;
+    margin-left: 0vw;
+    width: 800px;
+    height: 400px;
+    /* border: 1px solid black; */
+    border-radius: 5px;
+    background: rgba(103, 65, 114, 0.5);
+}
+
+ul#keyboard {
+    margin-top: 25vh;
+    width: 400px;
     list-style: none;
     display: flex;
+    padding-inline-start: 0px;
+    margin-top: 0em;
     margin: auto;
 }
 
-ul .key {
+
+div#playbar {
+    width: 400px;
+    height: 50px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: auto;
+    margin-top: 1em;
+    background-image: url("../public/images/soundbar.png");
+}
+
+div#tray {
+    list-style: none;
+    justify-content: space-between;
+    display: flex;
+    padding-inline-start: 5%;
+    padding-inline-end: 5%;
+    margin-top: 10px;
+}
+
+ul .white-key {
     position: relative;
     width: 50px;
     height: 200px;
@@ -37,11 +71,11 @@ ul .key {
     font-weight: bold;
 }
 
-ul .key:last-child {
+ul .white-key:last-child {
     border-right: 1px solid black;
 }
 
-ul .bkey {
+ul .black-key {
     position: absolute;
     top: -1px;
     left: 37.5px;
@@ -68,7 +102,7 @@ div[data-status="nopress"] {
 }
 
 div[data-status="pressed"] {
-    color: yellow;
+    color: rgba(254, 241, 96, 0.5);
     box-shadow: 0px 1px 3px #666;
 }
 
@@ -78,15 +112,182 @@ li[data-status="nopress"] {
 }
 
 li[data-status="pressed"] {
-    color: yellow;
+    color: rgba(254, 241, 96, 0.5);
     box-shadow: 0px 1px 3px #666;
 }
 
-div button {
+div#sound-clips {
+    list-style: none;
+    /* justify-content: space-between; */
+    display: table-row;
+    padding-inline-start: 5%;
+    padding-inline-end: 5%;
+    margin-top: 5vh;
+    height: 30px;
+    flex-flow: row;
+}
+
+button.delete {
+    width: 30px;
+	height: 30px;
+	font-weight: bolder;
+	background-color: rgba(78, 157, 0, 0.666);;
+    outline: none;
+    position: fixed;
+}
+
+button.sound {
+    width: 30px;
+	height: 30px;
+	font-weight: bolder;
+	background-color: rgba(78, 157, 0, 1);;
+    outline: none;
+    /* position: fixed; */
+}
+
+button#record {
+    width: 30px;
+	height: 30px;
+    /* font-size: 0; */
+    font-weight: bolder;
+	background-color: rgba(173,0,0,0.9);
+	border: 1;
+	border-radius: 30px;
+	outline: none;
+}
+
+button.stop {
+    font-weight: bolder;
+    width: 30px;
+	height: 30px;
+	/* font-size: 0; */
+	background-color: rgba(82, 82, 82, 0.9);
+	border: 1;
+	outline: none;
+}
+
+button#record.active{
+    animation-name: pulse;
+	animation-duration: 1.5s;
+	animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    background-color: rgba(255, 0, 0, 0.9);
+}
+
+img#logo {
+    margin-top: 0.75%;
+    margin-bottom: 0.75%;
+    padding-left: 1.8vw;
+    opacity: 0.8;
+}
+
+div#comments {
+    margin-top: 0.8%;
+    line-height:3em;
     justify-content: center;
     align-items: center;
-    height: 50px;
-    margin-right: 10px;
     border-radius: 5px;
+    overflow:auto;
+    float: right;
+    width: 58%;
+    height: 200px;
+    background-color: rgba(103, 65, 114, 0.5);
+}
+
+/* ::-webkit-scrollbar {
+    color: transparent;
+} */
+
+textarea {
+    border-radius: 5px;
+    resize: none;
     outline: none;
+    border: none;
+    font-size: large;
+    font-weight: 900px;
+    color: rgb(220, 220, 220);
+    background-color: rgba(103, 65, 114, 0.5);
+    -webkit-text-stroke: 0.3px black;
+    outline: none;
+}
+
+label {
+    color: rgb(220, 220, 220);
+    margin-top: 1vh;
+}
+
+ul {
+    padding-inline-start: 20px;
+}
+
+li {
+    font-size: large;
+    font-weight: 900px;
+    height: 30px;
+    list-style-type: none;
+    color: rgb(220, 220, 220);
+    -webkit-text-stroke: 0.3px black;
+}
+
+#user {
+    border: none;
+    border-radius: 5px;
+    font-size: large;
+    font-weight: 900px;
+    color: rgb(220, 220, 220);
+    background-color: rgba(103, 65, 114, 0.5);
+    -webkit-text-stroke: 0.3px black;
+    outline: none;
+}
+
+#newRecording {
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+    float: left;
+}
+
+article.clip {
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+}
+
+audio {
+    height: 30px;
+}
+
+div#features {
+    width: 800px;
+    display: inline;
+}
+
+.second{
+    margin-left: 100px;
+    float: right;
+}
+
+input#submit {
+    width: 100px;
+	height: 30px;
+	font-weight: bolder;
+	background-color: rgba(78, 157, 0, 1);;
+    outline: none;
+}
+
+::placeholder {
+    color: rgba(220, 220, 220, 0.5);
+    -webkit-text-stroke: 0.3px black;
+}
+
+@keyframes pulse{
+    0%{
+        box-shadow: 0px 0px 5px 0px rgba(173,0,0,.3);
+	}
+	65%{
+        box-shadow: 0px 0px 5px 13px rgba(173,0,0,.3);
+	}
+	90%{
+        box-shadow: 0px 0px 5px 13px rgba(173,0,0,0);
+	}
 }
