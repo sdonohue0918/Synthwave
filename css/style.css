@@ -275,9 +275,14 @@ input#submit {
     outline: none;
 }
 
-.disabled {
+.white-key.disabled {
     pointer-events: none;
 }
+
+.black-key.disabled {
+    pointer-events: none;
+}
+
 ::placeholder {
     color: rgba(220, 220, 220, 0.5);
     -webkit-text-stroke: 0.3px black;

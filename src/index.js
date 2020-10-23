@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function recordAudio() {
     window.AudioContext = window.AudioContext || window.webkitAudioContext
-    let context = new AudioContext()
+    //let context = new AudioContext()
     // if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices.getUserMedia ({audio: true})
     .then(function(stream) {
@@ -212,7 +212,7 @@ function sampleHandler() {
     document.addEventListener("click", e => {
         const keyboard = document.querySelector("#keyboard")
         if(e.target.matches("#samples1")) {
-            enableSound()
+            //enableSound()
             keyboard.innerHTML = `
         <li data-note="261-C.mp3" data-key="65" id="C" data-status="nopress" class="white-key"> C
             <div data-note="277-C-sharp.mp3" data-key="87" id="Db" data-status="nopress" class="black-key">Db</div>
@@ -234,8 +234,8 @@ function sampleHandler() {
         <li data-note="523-C.mp3" data-key="75" id="C1" data-status="nopress" class="white-key">C</li>
             `
         }
-        if(e.target.matches("#samples2")) {
-            enableSound()
+        else if(e.target.matches("#samples2")) {
+            //enableSound()
             keyboard.innerHTML = `
         <li data-note="523-C.mp3" data-key="65" id="C" data-status="nopress" class="white-key"> C
             <div data-note="545-C-sharp.mp3" data-key="87" id="Db" data-status="nopress" class="black-key">Db</div>
@@ -257,8 +257,8 @@ function sampleHandler() {
         <li data-note="1046-C.mp3" data-key="75" id="C1" data-status="nopress" class="white-key">C</li>
             `
         }
-        if(e.target.matches("#samples3")) {
-            enableSound()
+        else if(e.target.matches("#samples3")) {
+            //enableSound()
             keyboard.innerHTML = `
         <li data-note="Pad14.wav" data-key="65" id="C" data-status="nopress" class="white-key"> C
             <div data-note="Pad2.wav" data-key="87" id="Db" data-status="nopress" class="black-key">Db</div>
@@ -279,6 +279,10 @@ function sampleHandler() {
         <li data-note="Pad12.wav" data-key="74" id="B" data-status="nopress" class="white-key">B</li>
         <li data-note="Pad13.wav" data-key="75" id="C1" data-status="nopress" class="white-key">C</li>
             `
+        } else if (e.target.matches("#test")) {
+            getAllSongs()
+        } else if (e.target.hasAttribute("data-song")) {
+            getSongFile(e.target.dataset.song)
         }
     })
 }
@@ -287,9 +291,7 @@ function disableSound() {
     const whiteKeys = document.getElementsByClassName('white-key')
     const blackKeys = document.getElementsByClassName('black-key')
     const blackKeyArray = [...blackKeys]
-    console.log(blackKeyArray)
     const whiteKeyArray = [...whiteKeys]
-    console.log(whiteKeyArray)
     for (const key of whiteKeyArray) {
         key.classList.add('disabled')
     }
@@ -303,9 +305,7 @@ function enableSound() {
     const whiteKeys = document.getElementsByClassName('white-key')
     const blackKeys = document.getElementsByClassName('black-key')
     const blackKeyArray = [...blackKeys]
-    console.log(blackKeyArray)
     const whiteKeyArray = [...whiteKeys]
-    console.log(whiteKeyArray)
     for (const key of whiteKeyArray) {
         key.classList.remove('disabled')
     }
@@ -391,4 +391,35 @@ function submitHandler() {
             form.reset()
         })
     }
+}
+
+function getAllSongs() {
+    fetch('http://localhost:3000/songs').then(function(response) {
+        return response.json()
+    }).then(function(json) {
+        renderSongList(json)
+    })
+}
+
+function renderSongList(data) {
+    const fetchButton = document.getElementById('test')
+    fetchButton.disabled = true
+    const listContainer = document.getElementById("song-list")
+    for (const song of data) {
+       let songLi = document.createElement('li')
+       listContainer.append(songLi)
+       songLi.textContent = `${song.author} : ${song.name}`
+       let loadButton = document.createElement('button')
+       loadButton.dataset.song = `${song.name}`
+       songLi.append(loadButton)
+    }
+}
+
+function getSongFile(song) {
+    const playBar = document.getElementById("newRecording")
+    playBar.src = `/Users/amydonohue/Flatiron/project3/proj3_final/Synthwave-backend/app/songs/${song}.wav`
+    
+    
+    
+
 }
