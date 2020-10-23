@@ -194,9 +194,9 @@ div#comments {
     background-color: rgba(103, 65, 114, 0.5);
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
     color: transparent;
-}
+} */
 
 textarea {
     border-radius: 5px;
