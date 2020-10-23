@@ -15,7 +15,7 @@ body {
 }
 
 div#synth {
-    margin-top: 10vh;
+    margin-top: 5vh;
     margin-left: 0vw;
     width: 800px;
     height: 400px;
@@ -92,10 +92,6 @@ ul .black-key {
     /* color: white; */
 }
 
-/* ul .active {
-    box-shadow: 0px 1px 3px #666;
-} */
-
 div[data-status="nopress"] {
     color: white;
     box-shadow: 0px 3px 5px #666;
@@ -117,14 +113,8 @@ li[data-status="pressed"] {
 }
 
 div#sound-clips {
-    list-style: none;
-    /* justify-content: space-between; */
-    display: table-row;
-    padding-inline-start: 5%;
-    padding-inline-end: 5%;
-    margin-top: 5vh;
     height: 30px;
-    flex-flow: row;
+    width: 40%;
 }
 
 div#sound-clips2 {
@@ -139,13 +129,31 @@ div#sound-clips2 {
 }
 
 button.delete {
+    margin-left: 10px;
+    top: 0%;
     width: 30px;
 	height: 30px;
 	font-weight: bolder;
 	background-color: rgba(78, 157, 0, 0.666);;
     outline: none;
-    position: fixed;
 }
+
+button.save {
+    width: 30px;
+	height: 30px;
+	font-weight: bolder;
+	background-color: rgba(78, 157, 0, 0.666);;
+    outline: none;
+}
+
+.clip {
+    position: relative;  
+    display: inline-block;
+    list-style-type: none;
+    height: 35px;
+    top: 0%;
+}
+
 
 button.sound {
     width: 30px;
@@ -193,7 +201,7 @@ img#logo {
 }
 
 div#comments {
-    margin-top: 0.8%;
+    margin-top: -3%;
     line-height:3em;
     justify-content: center;
     align-items: center;
@@ -201,13 +209,10 @@ div#comments {
     overflow:auto;
     float: right;
     width: 58%;
-    height: 200px;
+    height: 210px;
     background-color: rgba(103, 65, 114, 0.5);
 }
 
-/* ::-webkit-scrollbar {
-    color: transparent;
-} */
 
 textarea {
     border-radius: 5px;
@@ -260,30 +265,23 @@ li {
     float: left;
 }
 
-#new {
-    margin-top: 0.25vh;
+.new {
+    margin-top: 21.4vh;
     margin-left: 0.5%;
     float: left;
 }
 
-
-article.clip {
-    justify-content: center;
-    align-items: center;
-    margin-top: 1%;
-}
-
 audio {
+    margin-top: 1%;
     height: 30px;
 }
 
-div#features {
-    width: 800px;
+#features {
+    overflow: auto;
     display: inline;
 }
 
 .second{
-    margin-left: 100px;
     float: right;
 }
 
@@ -312,6 +310,7 @@ input#submit {
     border-radius: 5px;
     justify-content: center;
     align-items: center;
+    overflow:auto;
     height: 200px;
     width: 41.5%;
     float: left;
@@ -319,8 +318,8 @@ input#submit {
     background-color: rgba(103, 65, 114, 0.5);
 }
 
-/* div#comments {
-    margin-top: 0.8%;
+div#comments {
+    margin-top: -3%;
     line-height:3em;
     justify-content: center;
     align-items: center;
@@ -328,9 +327,18 @@ input#submit {
     overflow:auto;
     float: right;
     width: 58%;
-    height: 200px;
+    height: 210px;
     background-color: rgba(103, 65, 114, 0.5);
-} */
+}
+
+button.load {
+    margin-left: 10px;
+    margin-top: 2px;
+    height: 30px;
+    font-weight: bolder;
+	background-color: rgba(78, 157, 0, 0.666);;
+    outline: none;
+}
 
 #content {
     width: 464px;

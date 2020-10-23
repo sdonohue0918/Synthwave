@@ -4,8 +4,68 @@ document.addEventListener("DOMContentLoaded", function() {
     soundHandler()
     sampleHandler()
     recordAudio()
-    
+    disableSound()
+    getAllSongs()
+    formNoSound()
+    crudHandler()
 })
+
+function crudHandler() {
+    document.addEventListener("click", e => {
+        if(e.target.matches("button.save")) {
+            console.dir(e.target.parentElement)
+        }
+        if(e.target.matches("button.load")) {
+            console.dir(e.target)
+        }
+        if(e.target.matches("button.delete")) {
+            console.dir(e.target)
+        }
+        if(e.target.matches("button.destroy")) {
+            console.dir(e.target)
+        }
+    }) 
+
+    function postSong(audio) {
+        let songForm = document.getElementById('song-form')
+        let file = new File([audio], `${songForm["name"].value}.wav`, {'type': 'audio/wav'})
+        let formData =  new FormData()
+        // console.log(name)
+        // console.log(author)
+        // console.log(file)
+        formData.append("name", songForm["name"].value)
+        formData.append("author", songForm["author"].value)
+        formData.append("file", file)
+
+        let options = {
+            method: 'POST',
+            mode: 'no-cors',
+            credentials: 'same-origin',
+            body: formData
+        }
+        fetch('http://localhost:3000/songs/', options).then(function(response) {
+            return response.json()
+        }).then(function(json) {
+            clearForm()
+            console.log(json)
+        }).catch(function(error) {
+            console.log("error: " + error)
+        })
+        
+        function clearForm() {
+        let formContainer = document.getElementById('form-container')
+        formContainer.innerHTML = ''
+        let form = document.getElementById('song-form')
+        }
+    }
+
+    // deleteButton.onclick = function(e) {
+    // let evtTgt = e.target;
+    // console.log(e.target)
+    // evtTgt.previousSibling.remove();
+    // evtTgt.remove();
+    // }
+}
 
 function recordAudio() {
     window.AudioContext = window.AudioContext || window.webkitAudioContext
@@ -37,13 +97,17 @@ function recordAudio() {
     const clipContainer = document.createElement('article');
     const audio = document.createElement('audio');
     const deleteButton = document.createElement('button');
+    const saveButton = document.createElement('button');
 
     clipContainer.classList.add('clip');
     audio.setAttribute('controls', '');
     deleteButton.innerHTML = "X";
     deleteButton.classList.add("delete")
+    saveButton.innerText = "💾"
+    saveButton.classList.add("save")
 
     clipContainer.appendChild(audio);
+
     let oldOne = document.querySelector("#new")
     if(oldOne) {
         oldOne.remove()
@@ -51,8 +115,10 @@ function recordAudio() {
 
     soundClips.appendChild(clipContainer);
     clipContainer.appendChild(deleteButton);
+    clipContainer.appendChild(saveButton)
 
     const blob = new Blob(chunks, { 'type' : 'audio/wav' });
+    console.log(blob)
     chunks = [];
     const audioURL = window.URL.createObjectURL(blob);
     audio.src = audioURL;
@@ -66,58 +132,10 @@ function recordAudio() {
     <button id="song-submit" type="submit">Upload Your Song</button>`
     formContainer.append(form)
 
-    const submitBtn = document.getElementById('song-submit')
-    submitBtn.onclick = function() {
-        // let blob = submitBtn.parentElement.src
-        postSong(blob)
-    }
-
-    function postSong(audio) {
-        let songForm = document.getElementById('song-form')
-        let file = new File([audio], `${songForm["name"].value}.wav`, {'type': 'audio/wav'})
-        let formData =  new FormData()
-        // console.log(name)
-        // console.log(author)
-        // console.log(file)
-        formData.append("name", songForm["name"].value)
-        formData.append("author", songForm["author"].value)
-        formData.append("file", file)
-
-        const submit = document.getElementById("song-submit")
-
-        let options = {
-            method: 'POST',
-            mode: 'no-cors',
-            credentials: 'same-origin',
-            body: formData
-        }
-        fetch('http://localhost:3000/songs/', options).then(function(response) {
-            return response.json()
-        }).then(function(json) {
-            clearForm()
-            console.log(json)
-        }).catch(function(error) {
-            console.log("error: " + error)
-        })
-        
-        function clearForm() {
-        let formContainer = document.getElementById('form-container')
-        formContainer.innerHTML = ''
-        let form = document.getElementById('song-form')
-        }
-    }
-
-    deleteButton.onclick = function(e) {
-    let evtTgt = e.target;
-    console.dir(e.target)
-    evtTgt.previousSibling.remove();
-    evtTgt.remove();
-    }
     }
     })
 }
 
-//////////////////////////////////////////////////////////////////////////
 function keyHandler() {
     document.addEventListener('keydown', e => {
         if (e.key === 'a') {
@@ -306,6 +324,20 @@ function soundHandler() {
     })
 }
 
+function disableSound() {
+    const whiteKeys = document.getElementsByClassName('white-key')
+    const blackKeys = document.getElementsByClassName('black-key')
+    const blackKeyArray = [...blackKeys]
+    const whiteKeyArray = [...whiteKeys]
+    for (const key of whiteKeyArray) {
+        key.dataset.note = ""
+    }
+
+    for (const key of blackKeyArray) {
+        key.dataset.note = ""
+    }
+}
+
 function getComments() {
     fetch("http://localhost:3000/comments")
     .then(resp => resp.json())
@@ -354,4 +386,41 @@ function submitHandler() {
             form.reset()
         })
     }
+}
+
+function getAllSongs() {
+    fetch('http://localhost:3000/songs')
+    .then(response => response.json())
+    .then(songs => renderSongList(songs))
+}
+
+function renderSongList(songs) {
+    // const fetchButton = document.getElementById('test')
+    // fetchButton.disabled = true
+    const listContainer = document.getElementById("audiolist")
+    for (const song of songs) {
+        let songLi = document.createElement('li')
+        listContainer.append(songLi)
+        songLi.innerHTML = `<b>${song.author}:</b> ${song.name}`
+        let loadButton = document.createElement('button')
+        loadButton.dataset.song = `${song.name}`
+        loadButton.classList.add("load")
+        loadButton.innerText = "Load"
+        songLi.append(loadButton)
+    }
+}
+
+function getSongFile(song) {
+    const playBar = document.getElementById("newRecording")
+    playBar.src = `/Users/gabrielhicks/Flatiron/code/3Mod/Project/wednesday/Synthwave-backend/app/songs/${song}.wav`
+}
+
+function formNoSound() {
+    document.addEventListener("click", e => {
+        if(e.target.matches("textarea")) {
+            disableSound()
+        } else if(e.target.matches("input")) {
+            disableSound()
+        }
+    })
 }
