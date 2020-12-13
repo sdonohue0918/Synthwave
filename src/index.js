@@ -28,9 +28,9 @@ function crudHandler() {
         }
         if(e.target.matches("button.load")) {
             let player = document.querySelector("#newRecording")
-            let songName = e.target.dataset.song
-            let loadPath = "/Users/gabrielhicks/Flatiron/code/3Mod/Project/wednesday/Synthwave-backend/app/songs/"+songName+".wav"
-            player.src = loadPath
+            let loadPath = e.target.dataset.filepath
+            let concatProxy = "https://cors-anywhere.herokuapp.com/" + loadPath
+            player.src = concatProxy
         }
         if(e.target.matches("button.delete")) {
             e.target.parentElement.remove()
@@ -425,7 +425,9 @@ function renderSongList(songs) {
         songLi.innerHTML = `<b>${song.author}:</b> ${song.name}`
         let loadButton = document.createElement('button')
         let destroyButton = document.createElement("button")
+        loadButton.dataset.filepath = song.file
         loadButton.dataset.song = song.name
+        loadButton.id = song.id
         destroyButton.classList.add("destroy")
         destroyButton.innerText = "X"
         destroyButton.dataset.id = song.id
@@ -450,7 +452,8 @@ function renderSong(song) {
 
 function getSongFile(song) {
     const playBar = document.getElementById("newRecording")
-    playBar.src = `/Users/gabrielhicks/Flatiron/code/3Mod/Project/wednesday/Synthwave-backend/app/songs/${song}.wav`
+    // playBar.src = `/Users/gabrielhicks/Flatiron/code/3Mod/Project/wednesday/Synthwave-backend/app/songs/${song}.wav`
+    playBar.src = `${song.file}`
 }
 
 function formNoSound() {
