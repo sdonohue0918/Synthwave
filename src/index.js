@@ -64,13 +64,12 @@ function postSong(audio) {
 
     let options = {
         method: 'POST',
-        mode: 'no-cors',
-        credentials: 'same-origin',
         body: formData
     }
 
     fetch('http://localhost:3000/songs/', options)
     .then(response => {
+        console.log(response)
         let tempId = songForm.dataset.key
         let tempSong = document.querySelector(`[data-num="${tempId}"]`)
         tempSong.parentElement.remove()
