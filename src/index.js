@@ -43,7 +43,8 @@ function crudHandler() {
                     method: "DELETE"
                 }
                 //fetch(`http://localhost:3000/songs/${songId}`, options)
-                fetch(process.env.SYNTHWAVE_SONGS_API + `${songId}`, options)
+                // fetch(process.env.SYNTHWAVE_SONGS_API + `${songId}`, options)
+                fetch(`https://quiet-brook-16140.herokuapp.com/songs/${songId}`, options)
                 .then(response => response.json())
                 .then(song => getAllSongs())
             }
@@ -69,7 +70,8 @@ function postSong(audio) {
     }
 
     // fetch('http://localhost:3000/songs/', options)
-    fetch(process.env.SYNTHWAVE_SONGS_API + `/`, options)
+    // fetch(process.env.SYNTHWAVE_SONGS_API + `/`, options)
+    fetch('https://quiet-brook-16140.herokuapp.com/songs', options)
     .then(response => {
         console.log(response)
         let tempId = songForm.dataset.key
@@ -354,7 +356,7 @@ function disableSound() {
 }
 
 function getComments() {
-    fetch("http://localhost:3000/comments")
+    fetch("https://quiet-brook-16140.herokuapp.com/comments")
     .then(resp => resp.json())
     .then(comments => {
         renderComments(comments)
@@ -402,7 +404,7 @@ function submitHandler() {
         body: JSON.stringify(newComment)
     }
 
-        fetch("http://localhost:3000/comments", options)
+        fetch("https://quiet-brook-16140.herokuapp.com/comments", options)
         .then(resp => resp.json())
         .then(comment => {
             getComments()
@@ -412,7 +414,7 @@ function submitHandler() {
 }
 
 function getAllSongs() {
-    fetch('http://localhost:3000/songs')
+    fetch('https://quiet-brook-16140.herokuapp.com/songs')
     .then(response => response.json())
     .then(songs => renderSongList(songs))
 }
