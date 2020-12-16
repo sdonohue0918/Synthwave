@@ -42,7 +42,8 @@ function crudHandler() {
                 options = {
                     method: "DELETE"
                 }
-                fetch(`http://localhost:3000/songs/${songId}`, options)
+                //fetch(`http://localhost:3000/songs/${songId}`, options)
+                fetch(process.env.SYNTHWAVE_SONGS_API + `${songId}`, options)
                 .then(response => response.json())
                 .then(song => getAllSongs())
             }
@@ -67,7 +68,8 @@ function postSong(audio) {
         body: formData
     }
 
-    fetch('http://localhost:3000/songs/', options)
+    // fetch('http://localhost:3000/songs/', options)
+    fetch(process.env.SYNTHWAVE_SONGS_API + `/`, options)
     .then(response => {
         console.log(response)
         let tempId = songForm.dataset.key
